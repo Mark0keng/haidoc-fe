@@ -1,0 +1,18 @@
+@import '@styles/base.scss';
+
+@import '@styles/base.scss';
+
+.layout {
+  margin-top: 10px;
+  padding-left: 5%;
+  padding-right: 5%;
+  @include apply-at-md-size {
+    padding-left: 25%;
+    padding-right: 3%;
+  }
+
+  @include apply-at-xl-size {
+    padding-left: 25%;
+    padding-right: 5%;
+  }
+}

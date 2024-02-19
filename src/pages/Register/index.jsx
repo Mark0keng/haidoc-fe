@@ -1,29 +1,84 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { register } from './actions';
 
 import classes from './style.module.scss';
 
 const Register = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleSubmit = () => {
+    const payload = {
+      username,
+      email,
+      password,
+      role: 1,
+    };
+
+    dispatch(
+      register(
+        payload,
+        () => {
+          navigate('/login');
+        },
+        (err) => {
+          setError(err.message);
+        }
+      )
+    );
+  };
 
   return (
     <div className={classes.layout}>
       <div className={classes.loginSection}>
         <div className={classes.title}>Register</div>
 
+        {error && <div className={classes.error}>{error}</div>}
+
         <div className={classes.formControl}>
           <div className={classes.label}>Username</div>
-          <input type="text" className={classes.input} />
+          <input
+            type="text"
+            className={classes.input}
+            value={username}
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+          />
         </div>
         <div className={classes.formControl}>
           <div className={classes.label}>Email</div>
-          <input type="text" className={classes.input} />
+          <input
+            type="text"
+            className={classes.input}
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
         </div>
         <div className={classes.formControl}>
           <div className={classes.label}>Password</div>
-          <input type="text" className={classes.input} />
+          <input
+            type="password"
+            className={classes.input}
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
         </div>
 
-        <div className={classes.button}>Submit</div>
+        <div className={classes.button} onClick={handleSubmit}>
+          Submit
+        </div>
         <div className={classes.noAccount}>
           Already have account?{' '}
           <span

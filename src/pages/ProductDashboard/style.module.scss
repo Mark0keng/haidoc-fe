@@ -1,0 +1,62 @@
+@import '@styles/base.scss';
+
+.layout {
+  padding: 5px;
+
+  .card {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    overflow: scroll;
+    @include apply-at-md-size {
+      overflow: hidden;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+    }
+
+    .button {
+      @include directionX;
+      width: fit-content;
+      font-size: 16px;
+      color: var(--color-bg);
+      background-color: var(--color-text);
+      padding: 8px 16px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      margin-bottom: 28px;
+    }
+
+    .action {
+      @include directionX;
+      gap: 12px;
+      justify-content: end;
+      .edit {
+        @include directionX;
+        justify-content: center;
+        align-items: center;
+        padding: 1px;
+        border-radius: 5px;
+        background-color: #ffa217;
+        width: 28px;
+        height: 28px;
+        color: #fff;
+      }
+      .delete {
+        @include directionX;
+        justify-content: center;
+        align-items: center;
+        padding: 1px;
+        border-radius: 5px;
+        background-color: #ba2d0e;
+        width: 28px;
+        height: 28px;
+        color: #fff;
+      }
+    }
+  }
+}
