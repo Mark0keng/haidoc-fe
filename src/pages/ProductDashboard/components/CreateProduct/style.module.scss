@@ -1,0 +1,44 @@
+@import '@styles/base.scss';
+
+.layout {
+  box-sizing: border-box;
+  padding: 48px;
+  width: 100%;
+
+  .title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .imageBox {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid;
+    .previewBox {
+      text-align: center;
+      .preview {
+        height: 124px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+    }
+  }
+
+  .formControl {
+    margin-bottom: 6px;
+    .label {
+      @include label;
+      font-size: 12px;
+    }
+    .input {
+      @include input;
+      padding: 8px;
+    }
+  }
+
+  .multiInput {
+    @include directionX;
+    gap: 32px;
+  }
+}
