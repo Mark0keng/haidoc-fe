@@ -9,7 +9,7 @@ function* doGetAllProduct({ query, cbSuccess, cbFailed }) {
   try {
     const products = yield call(getProduct, query);
     yield put(setAllProduct(products.data));
-    cbSuccess && cbSuccess();
+    cbSuccess && cbSuccess(products);
   } catch (error) {
     if (error?.response?.data?.output?.payload) {
       cbFailed && cbFailed(error.response.data.output.payload);
@@ -23,8 +23,8 @@ function* doCreateProduct({ payload, cbSuccess, cbFailed }) {
   try {
     yield call(createProduct, payload);
 
-    const products = yield call(getProduct);
-    yield put(setAllProduct(products.data));
+    // const products = yield call(getProduct);
+    // yield put(setAllProduct(products.data));
     cbSuccess && cbSuccess();
   } catch (error) {
     if (error?.response?.data?.output?.payload) {

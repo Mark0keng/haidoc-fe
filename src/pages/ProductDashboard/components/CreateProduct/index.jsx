@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-
+import { connect, useDispatch } from 'react-redux';
 import { Dialog } from '@mui/material';
 
+import { createProduct, setAllProduct } from '@pages/ProductDashboard/actions';
+
 import classes from './style.module.scss';
-import { createProduct } from '@pages/ProductDashboard/actions';
 
 const CreateProduct = ({ isOpen, onClose }) => {
   const [imageUrl, setImageUrl] = useState('');
@@ -30,6 +30,7 @@ const CreateProduct = ({ isOpen, onClose }) => {
     setConsumption('');
     setPackaging('');
     setManufacture('');
+    setError('');
   }, [onClose]);
 
   const handleUploadImage = (event) => {
@@ -55,6 +56,8 @@ const CreateProduct = ({ isOpen, onClose }) => {
       createProduct(
         payload,
         () => {
+          const products = dispatch(getAllProduct({ limit: 3, page: 0 }));
+          dispatch(setAllProduct(products.rows));
           onClose();
         },
         (err) => {
@@ -189,4 +192,4 @@ const CreateProduct = ({ isOpen, onClose }) => {
   );
 };
 
-export default CreateProduct;
+export default connect()(CreateProduct);

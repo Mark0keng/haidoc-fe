@@ -6,6 +6,7 @@ import Home from '@pages/Home';
 import Login from '@pages/Login';
 import NotFound from '@pages/NotFound';
 import ProductDashboard from '@pages/ProductDashboard';
+import ProductDetail from '@pages/ProductDetail';
 import Register from '@pages/Register';
 import Shop from '@pages/Shop';
 
@@ -22,6 +23,13 @@ const routes = [
     name: 'Shop',
     protected: false,
     component: Shop,
+    layout: MainLayout,
+  },
+  {
+    path: '/product/:id',
+    name: 'Product Detail',
+    protected: false,
+    component: ProductDetail,
     layout: MainLayout,
   },
   {

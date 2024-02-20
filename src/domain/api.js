@@ -37,6 +37,7 @@ export const ping = () => callAPI(urls.ping, 'get');
 export const register = (payload) => callAPI(urls.register, 'post', {}, {}, payload);
 export const login = (payload) => callAPI(urls.login, 'post', {}, {}, payload);
 export const getProduct = (query) => callAPI(urls.getProduct, 'get', {}, query);
+export const getProductById = (productId) => callAPI(`${urls.getProduct}/${productId}`, 'get');
 export const createProduct = (payload) =>
   callAPI(urls.createProduct, 'post', { 'Content-Type': 'multipart/form-data' }, {}, payload);
 export const updateProduct = (payload, productId) =>

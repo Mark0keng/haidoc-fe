@@ -27,12 +27,6 @@ const ProductDashboard = ({ products }) => {
     dispatch(getAllProduct({ limit, page: Number(page) - 1 }));
   }, [dispatch, page, limit]);
 
-  // const handlePageChange = (event, value) => {
-  //   console.log(value);
-  //   setPage(value);
-  //   dispatch(getAllProduct({ limit, page: Number(page) - 1 }));
-  // };
-
   const handleOpenCreate = () => {
     setIsCreateOpen(!isCreateOpen);
   };
@@ -112,7 +106,7 @@ const ProductDashboard = ({ products }) => {
         <div className={classes.pagination}>
           <Pagination
             color="primary"
-            count={Math.ceil(products.count / limit)}
+            count={Math.ceil(products?.count / limit)}
             page={page}
             onChange={(e, value) => setPage(value)}
           />

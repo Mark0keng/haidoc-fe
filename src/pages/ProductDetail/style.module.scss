@@ -1,0 +1,13 @@
+@import '@styles/base.scss';
+
+.mainContent {
+  @include apply-at-md-size {
+    @include directionX;
+  }
+  .imageSection {
+  }
+  .infoSection {
+    .name {
+    }
+  }
+}
