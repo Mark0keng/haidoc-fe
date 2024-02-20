@@ -2,7 +2,7 @@ import { produce } from 'immer';
 import { SET_ALL_PRODUCT } from './constants';
 
 export const initialState = {
-  products: [],
+  products: {},
 };
 
 export const storedKey = ['products'];

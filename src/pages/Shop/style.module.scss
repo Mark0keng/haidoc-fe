@@ -1,0 +1,50 @@
+@import '@styles/base.scss';
+
+.banner {
+  background-color: #1c4475;
+  width: 100%;
+  padding: 5% 10%;
+  box-sizing: border-box;
+
+  .title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .subTitle {
+    font-size: 28px;
+    font-weight: 300;
+    color: #fff;
+  }
+
+  .search {
+    @include directionX;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    margin-top: 28px;
+    overflow: hidden;
+
+    .input {
+      height: 100%;
+      width: 100%;
+      padding: 18px;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      font-size: 18px;
+      box-sizing: border-box;
+    }
+    .button {
+      @include directionX;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 0px 32px;
+      font-size: 18px;
+      background-color: #f96d01;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      color: #fff;
+    }
+  }
+}

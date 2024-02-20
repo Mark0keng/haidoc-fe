@@ -1,0 +1,26 @@
+@import '@styles/base.scss';
+
+.layout {
+  box-sizing: border-box;
+  padding: 48px;
+  width: 100%;
+
+  .title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #bb0b35;
+  }
+
+  .desc {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .button {
+    @include button;
+    text-align: center;
+    cursor: pointer;
+    width: 20%;
+  }
+}

@@ -1,4 +1,4 @@
-import { CREATE_PRODUCT, GET_ALL_PRODUCT, SET_ALL_PRODUCT } from './constants';
+import { CREATE_PRODUCT, DELETE_PRODUCT, GET_ALL_PRODUCT, SET_ALL_PRODUCT, UPDATE_PRODUCT } from './constants';
 
 export const setAllProduct = (products) => ({
   type: SET_ALL_PRODUCT,
@@ -17,4 +17,18 @@ export const createProduct = (payload, cbSuccess, cbFailed) => ({
   payload,
   cbSuccess,
   cbFailed,
+});
+
+export const updateProduct = (payload, productId, cbSuccess, cbFailed) => ({
+  type: UPDATE_PRODUCT,
+  payload,
+  productId,
+  cbSuccess,
+  cbFailed,
+});
+
+export const deleteProduct = (productId, cbSuccess) => ({
+  type: DELETE_PRODUCT,
+  productId,
+  cbSuccess,
 });

@@ -7,6 +7,7 @@ import Login from '@pages/Login';
 import NotFound from '@pages/NotFound';
 import ProductDashboard from '@pages/ProductDashboard';
 import Register from '@pages/Register';
+import Shop from '@pages/Shop';
 
 const routes = [
   {
@@ -14,6 +15,13 @@ const routes = [
     name: 'Home',
     protected: false,
     component: Home,
+    layout: MainLayout,
+  },
+  {
+    path: '/shop',
+    name: 'Shop',
+    protected: false,
+    component: Shop,
     layout: MainLayout,
   },
   {
@@ -45,7 +53,7 @@ const routes = [
   {
     path: '/dashboard/product',
     name: 'Product Dashboard',
-    protected: true,
+    protected: false,
     component: ProductDashboard,
     layout: AppLayout,
   },

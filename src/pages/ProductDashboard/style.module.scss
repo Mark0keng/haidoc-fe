@@ -32,10 +32,14 @@
       cursor: pointer;
     }
 
+    .image {
+      max-height: 52px;
+    }
+
     .action {
       @include directionX;
       gap: 12px;
-      justify-content: end;
+      justify-content: center;
       .edit {
         @include directionX;
         justify-content: center;
@@ -60,6 +64,12 @@
         color: #fff;
         cursor: pointer;
       }
+    }
+
+    .pagination {
+      @include directionX;
+      justify-content: end;
+      padding-top: 12px;
     }
   }
 }
