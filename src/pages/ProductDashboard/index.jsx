@@ -1,19 +1,35 @@
+import { useState } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
-import { DeleteOutline, DeleteOutlineRounded, EditOutlined } from '@mui/icons-material';
+import { DeleteOutline, EditOutlined } from '@mui/icons-material';
 import AddRounded from '@mui/icons-material/AddRounded';
+
+import CreateProduct from './components/CreateProduct/CreateProduct';
 
 import classes from './style.module.scss';
 
 const ProductDashboard = () => {
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+
+  const handleOpenCreate = () => {
+    setIsCreateOpen(!isCreateOpen);
+  };
+
   return (
     <div className={classes.layout}>
       <div className={classes.card}>
         <div className={classes.title}>Product Management</div>
 
-        <div className={classes.button}>
-          <AddRounded />
+        <div className={classes.button} onClick={handleOpenCreate}>
+          <AddRounded sx={{ fontSize: 20 }} />
           Create
         </div>
+
+        <CreateProduct
+          isOpen={isCreateOpen}
+          onClose={() => {
+            setIsCreateOpen(false);
+          }}
+        />
 
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>

@@ -29,6 +29,7 @@
       align-items: center;
       border-radius: 10px;
       margin-bottom: 28px;
+      cursor: pointer;
     }
 
     .action {
@@ -45,6 +46,7 @@
         width: 28px;
         height: 28px;
         color: #fff;
+        cursor: pointer;
       }
       .delete {
         @include directionX;
@@ -56,6 +58,7 @@
         width: 28px;
         height: 28px;
         color: #fff;
+        cursor: pointer;
       }
     }
   }
