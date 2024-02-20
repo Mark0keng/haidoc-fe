@@ -7,6 +7,8 @@ const urls = {
   ping: 'ping.json',
   register: 'register',
   login: 'login',
+  getProduct: 'product',
+  createProduct: 'product/create',
 };
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
@@ -32,3 +34,5 @@ export const callAPI = async (endpoint, method, header = {}, params = {}, data =
 export const ping = () => callAPI(urls.ping, 'get');
 export const register = (payload) => callAPI(urls.register, 'post', {}, {}, payload);
 export const login = (payload) => callAPI(urls.login, 'post', {}, {}, payload);
+export const getProduct = (query) => callAPI(urls.getProduct, 'get', {}, query, payload);
+export const createProduct = (payload) => callAPI(urls.createProduct, 'post', {}, {}, payload);

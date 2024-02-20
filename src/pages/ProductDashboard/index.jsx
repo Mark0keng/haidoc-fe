@@ -1,8 +1,8 @@
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { DeleteOutline, DeleteOutlineRounded, EditOutlined } from '@mui/icons-material';
+import AddRounded from '@mui/icons-material/AddRounded';
 
 import classes from './style.module.scss';
-import AddRounded from '@mui/icons-material/AddRounded';
-import { DeleteOutline, DeleteOutlineRounded, EditOutlined } from '@mui/icons-material';
 
 const ProductDashboard = () => {
   return (
