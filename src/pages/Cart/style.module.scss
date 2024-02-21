@@ -20,10 +20,41 @@
 }
 
 .cart {
-  padding: 12px;
+  padding: 12px 24px;
   .layout {
     @include directionX;
     justify-content: space-between;
+    .itemSection {
+      width: 100%;
+      .title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 12px;
+      }
+      .item {
+        @include directionX;
+        gap: 8px;
+        .image {
+          height: 72px;
+          width: 72px;
+          object-fit: cover;
+          border-radius: 5px;
+        }
+        .name {
+          font-size: 14px;
+          font-weight: 500;
+        }
+      }
+      .quantity {
+        @include directionX;
+        // width: 100%;
+        gap: 12px;
+        font-size: 16px;
+      }
+      .price {
+        font-size: 14px;
+      }
+    }
     .priceSection {
       border: 2px solid #1c4475;
       border-radius: 10px;

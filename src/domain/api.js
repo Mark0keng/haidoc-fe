@@ -12,6 +12,7 @@ const urls = {
   updateProduct: 'product/update',
   deleteProduct: 'product/delete',
   getCart: 'cart',
+  getManyCart: 'cart/all',
   createCart: 'cart/create',
 };
 
@@ -48,4 +49,5 @@ export const updateProduct = (payload, productId) =>
 export const deleteProduct = (productId) => callAPI(`${urls.deleteProduct}/${productId}`, 'delete');
 
 export const getCart = (query) => callAPI(urls.getCart, 'get', {}, query);
+export const getManyCart = (query) => callAPI(urls.getManyCart, 'get', {}, query);
 export const createCart = (payload) => callAPI(urls.createCart, 'post', {}, {}, payload);

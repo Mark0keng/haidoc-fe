@@ -17,7 +17,6 @@ const Login = () => {
       email,
       password,
     };
-    console.log('asdasd');
     dispatch(
       login(
         payload,

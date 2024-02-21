@@ -4,6 +4,7 @@ import appReducer, { storedKey as storedAppState } from '@containers/App/reducer
 import clientReducer, { storedKey as storedClientState } from '@containers/Client/reducer';
 import productReducer, { storedKey as storedProductState } from '@pages/ProductDashboard/reducer';
 import productDetailReducer, { storedKey as storedProductDetailState } from '@pages/ProductDetail/reducer';
+import cartReducer, { storedKey as storedCartState } from '@pages/Cart/reducer';
 import languageReducer from '@containers/Language/reducer';
 
 import { mapWithPersistor } from './persistence';
@@ -13,6 +14,7 @@ const storedReducers = {
   client: { reducer: clientReducer, whitelist: storedClientState },
   product: { reducer: productReducer, whitelist: storedProductState },
   productDetail: { reducer: productDetailReducer, whitelist: storedProductDetailState },
+  cart: { reducer: cartReducer, whitelist: storedCartState },
 };
 
 const temporaryReducers = {

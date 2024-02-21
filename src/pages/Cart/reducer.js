@@ -1,8 +1,8 @@
 import { produce } from 'immer';
-import { SET_CART } from './actions';
+import { SET_CART } from './constants';
 
 export const initialState = {
-  cart: [],
+  cart: null,
 };
 
 export const storedKey = ['cart'];

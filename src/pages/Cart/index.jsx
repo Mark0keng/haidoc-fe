@@ -4,14 +4,15 @@ import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { jwtDecode } from 'jwt-decode';
 import { Grid } from '@mui/material';
-import { AddBoxOutlined, IndeterminateCheckBoxOutlined } from '@mui/icons-material';
+import { AddBoxOutlined, IndeterminateCheckBoxOutlined, Title } from '@mui/icons-material';
 
 import { selectToken } from '@containers/Client/selectors';
+import { selectCart } from './selector';
+import { getManyCart } from './actions';
 
 import classes from './style.module.scss';
-import { getCart } from './actions';
 
-const Cart = ({ token }) => {
+const Cart = ({ token, cart }) => {
   const [user, setUser] = useState('');
   const dispatch = useDispatch();
 
@@ -20,10 +21,10 @@ const Cart = ({ token }) => {
   }, []);
 
   useEffect(() => {
-    dispatch(getCart({ userId: user?.id }));
+    user && dispatch(getManyCart({ userId: user?.id }));
   }, [dispatch, user]);
 
-  // console.log(user);
+  console.log(cart);
 
   return (
     <div>
@@ -38,31 +39,34 @@ const Cart = ({ token }) => {
       <div className={classes.cart}>
         <div className={classes.layout}>
           <div className={classes.itemSection}>
-            <div className="">Daftar Pesanan</div>
-            <Grid container spacing={2}>
-              <Grid item sm={5}>
-                <div>
-                  <img src="" alt="" className={classes.image} />
-                  <div className={classes.name}></div>
-                </div>
-              </Grid>
-              <Grid item sm={3.5}>
-                <div className={classes.quantity}>
-                  <div>
-                    <AddBoxOutlined />
+            <div className={classes.title}>Daftar Pesanan</div>
+            {cart?.map((item, index) => (
+              <Grid container spacing={3}>
+                <Grid item md={7}>
+                  <div className={classes.item}>
+                    <img src={item?.products?.imageUrl} alt="product-img" className={classes.image} />
+                    <div className={classes.infoItem}>
+                      <div className={classes.name}>{item?.products?.name}</div>
+                      <div className={classes.name}>{item?.products?.packaging}</div>
+                    </div>
                   </div>
-                  <div>3</div>
-                  <div>
-                    <IndeterminateCheckBoxOutlined />
+                </Grid>
+                <Grid item md={3}>
+                  <div className={classes.quantity}>
+                    <div>
+                      <AddBoxOutlined fontSize="small" />
+                    </div>
+                    <div>{item?.count}</div>
+                    <div>
+                      <IndeterminateCheckBoxOutlined fontSize="small" />
+                    </div>
                   </div>
-                </div>
+                </Grid>
+                <Grid item md={2}>
+                  <div className={classes.price}>Rp {item?.products?.price * item?.count}</div>
+                </Grid>
               </Grid>
-              <Grid item sm={3.5}>
-                <div>
-                  <div className={classes.price}>Rp 10000</div>
-                </div>
-              </Grid>
-            </Grid>
+            ))}
           </div>
           <div className={classes.priceSection}></div>
         </div>
@@ -73,10 +77,12 @@ const Cart = ({ token }) => {
 
 Cart.propTypes = {
   token: PropTypes.string,
+  cart: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   token: selectToken,
+  cart: selectCart,
 });
 
 export default connect(mapStateToProps)(Cart);
