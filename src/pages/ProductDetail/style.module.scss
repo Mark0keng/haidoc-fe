@@ -1,13 +1,65 @@
 @import '@styles/base.scss';
 
-.mainContent {
-  @include apply-at-md-size {
-    @include directionX;
+.layout {
+  padding: 5%;
+  .mainContent {
+    @include apply-at-md-size {
+      @include directionX;
+      // justify-content: center;
+      gap: 48px;
+    }
+    .imageSection {
+      text-align: center;
+      @include apply-at-sm-size {
+        text-align: start;
+      }
+      .image {
+        width: 320px;
+        height: 320px;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+    }
+    .infoSection {
+      @include directionY;
+      gap: 3%;
+      margin-top: 18px;
+      .name {
+        font-size: 28px;
+        font-weight: 600;
+      }
+      .package {
+        font-size: 20px;
+        font-weight: 400;
+      }
+      .price {
+        color: #306dbd;
+        font-size: 28px;
+        font-weight: 600;
+      }
+      .button {
+        @include button;
+        @include directionX;
+        gap: 12px;
+        align-items: center;
+        padding: 12px;
+      }
+    }
   }
-  .imageSection {
-  }
-  .infoSection {
-    .name {
+
+  .detailContent {
+    margin-top: 32px;
+    .section {
+      margin-bottom: 18px;
+      .title {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 2;
+      }
+      .content {
+        font-size: 18px;
+        font-weight: 400;
+      }
     }
   }
 }

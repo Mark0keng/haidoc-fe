@@ -1,0 +1,34 @@
+@import '@styles/base.scss';
+
+.navigation {
+  @include directionX;
+  height: 64px;
+  padding: 0px 10%;
+  background-color: var(--color-bg);
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #000;
+
+  .item {
+    cursor: pointer;
+    color: var(--color-text);
+  }
+  .border {
+    color: #000;
+    // width: 80%;
+  }
+}
+
+.cart {
+  padding: 12px;
+  .layout {
+    @include directionX;
+    justify-content: space-between;
+    .priceSection {
+      border: 2px solid #1c4475;
+      border-radius: 10px;
+      height: 100vh;
+      width: 30%;
+    }
+  }
+}

@@ -56,7 +56,7 @@ const ProductDashboard = ({ products }) => {
           }}
         />
 
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650, backgroundColor: 'var(--color-bg)' }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>#</TableCell>

@@ -1,15 +1,25 @@
-import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
+import { createStructuredSelector } from 'reselect';
+import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import KeyboardDoubleArrowLeftRounded from '@mui/icons-material/KeyboardDoubleArrowLeftRounded';
+import { HomeOutlined, HomeRounded, LogoutOutlined, MedicationOutlined } from '@mui/icons-material';
+
+import { selectToken } from '@containers/Client/selectors';
 
 import classes from './style.module.scss';
-import { HomeOutlined, HomeRounded, LogoutOutlined, MedicationOutlined } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
 
-const Sidebar = () => {
+const Sidebar = ({ token }) => {
   const [user, setUser] = useState({});
   const [isOpen, setIsOpen] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setUser(jwtDecode(token));
+  }, []);
 
   const handleOpen = () => {
     setIsOpen(!isOpen);
@@ -25,7 +35,7 @@ const Sidebar = () => {
 
       <div className={classes.profile}>
         <Avatar />
-        <div className={classes.name}>Farras Arkan</div>
+        <div className={classes.name}>{user?.username}</div>
       </div>
 
       <div className={classes.navigation}>
@@ -53,4 +63,12 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+Sidebar.propTypes = {
+  token: PropTypes.string,
+};
+
+const mapStateToProps = createStructuredSelector({
+  token: selectToken,
+});
+
+export default connect(mapStateToProps)(Sidebar);

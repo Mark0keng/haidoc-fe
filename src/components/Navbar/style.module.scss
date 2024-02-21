@@ -31,6 +31,12 @@
 
     .toolbar {
       @include directionX;
+      gap: 16px;
+      align-items: center;
+      .cart {
+        padding-top: 10px;
+        cursor: pointer;
+      }
       .theme {
         @include directionX;
         align-items: center;

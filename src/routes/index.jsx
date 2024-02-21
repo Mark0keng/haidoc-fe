@@ -1,5 +1,6 @@
 import AppLayout from '@layouts/AppLayout';
 import MainLayout from '@layouts/MainLayout';
+import Cart from '@pages/Cart';
 import Dashboard from '@pages/Dashboard/Index';
 
 import Home from '@pages/Home';
@@ -45,11 +46,11 @@ const routes = [
     component: Register,
   },
   {
-    path: '/dashboard',
-    name: 'Dashboard',
+    path: '/checkout/cart',
+    name: 'Cart',
     protected: true,
-    component: Dashboard,
-    layout: AppLayout,
+    component: Cart,
+    layout: MainLayout,
   },
   {
     path: '/dashboard',

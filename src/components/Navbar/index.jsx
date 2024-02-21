@@ -9,6 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
+import ShoppingCartCheckoutOutlined from '@mui/icons-material/ShoppingCartCheckoutOutlined';
 
 import { setLocale, setTheme } from '@containers/App/actions';
 
@@ -51,6 +52,9 @@ const Navbar = ({ title, locale, theme }) => {
           <div className={classes.title}>{title}</div>
         </div>
         <div className={classes.toolbar}>
+          <div className={classes.cart} onClick={() => navigate('/checkout/cart')}>
+            <ShoppingCartCheckoutOutlined />
+          </div>
           <div className={classes.theme} onClick={handleTheme} data-testid="toggleTheme">
             {theme === 'light' ? <NightsStayIcon /> : <LightModeIcon />}
           </div>
