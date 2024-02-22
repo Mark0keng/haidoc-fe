@@ -1,65 +1,91 @@
 @import '@styles/base.scss';
 
-.navigation {
-  @include directionX;
-  height: 64px;
-  padding: 0px 10%;
+.layout {
   background-color: var(--color-bg);
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #000;
-
-  .item {
-    cursor: pointer;
-    color: var(--color-text);
-  }
-  .border {
-    color: #000;
-    // width: 80%;
-  }
-}
-
-.cart {
-  padding: 12px 24px;
-  .layout {
+  .navigation {
     @include directionX;
+    height: 64px;
+    padding: 0px 10%;
+    background-color: var(--color-bg);
     justify-content: space-between;
-    .itemSection {
-      width: 100%;
-      .title {
-        font-size: 18px;
-        font-weight: 500;
-        margin-bottom: 12px;
-      }
-      .item {
+    align-items: center;
+    border-bottom: 1px solid #000;
+
+    .item {
+      cursor: pointer;
+      color: var(--color-text);
+    }
+    .border {
+      color: #000;
+      // width: 80%;
+    }
+  }
+
+  .cart {
+    padding: 12px 24px;
+    .layout {
+      @include apply-at-md-size {
         @include directionX;
-        gap: 8px;
-        .image {
-          height: 72px;
-          width: 72px;
-          object-fit: cover;
-          border-radius: 5px;
+      }
+      justify-content: space-between;
+      .itemSection {
+        width: 100%;
+        .title {
+          font-size: 18px;
+          font-weight: 500;
+          margin-bottom: 12px;
         }
-        .name {
+        .item {
+          @include directionX;
+          gap: 8px;
+          .image {
+            height: 72px;
+            width: 72px;
+            object-fit: cover;
+            border-radius: 5px;
+          }
+          .name {
+            font-size: 12px;
+            font-weight: 700;
+          }
+          .package {
+            font-size: 12px;
+            font-weight: 400;
+          }
+        }
+        .quantity {
+          @include directionX;
+          gap: 12px;
           font-size: 14px;
+        }
+        .price {
+          font-size: 12px;
           font-weight: 500;
         }
       }
-      .quantity {
-        @include directionX;
-        // width: 100%;
-        gap: 12px;
-        font-size: 16px;
+      .priceSection {
+        padding: 12px;
+        height: 100vh;
+        width: 40%;
+        border-left: 1px solid var(--color-text);
+        .price {
+          padding: 8px;
+          border-bottom: 1px solid var(--color-text);
+          .title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+          }
+          .totalItem {
+            font-size: 16px;
+            font-weight: 500;
+          }
+          .shipping {
+            font-size: 16px;
+            font-weight: 500;
+          }
+        }
       }
-      .price {
-        font-size: 14px;
-      }
-    }
-    .priceSection {
-      border: 2px solid #1c4475;
-      border-radius: 10px;
-      height: 100vh;
-      width: 30%;
     }
   }
 }

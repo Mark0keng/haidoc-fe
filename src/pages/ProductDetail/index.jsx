@@ -3,38 +3,44 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { jwtDecode } from 'jwt-decode';
 import AddShoppingCartRounded from '@mui/icons-material/AddShoppingCartRounded';
+import { Add, Remove } from '@mui/icons-material';
 
 import { addToCart, getOneProduct } from './actions';
 import { selectProduct } from './selector';
-import { selectToken } from '@containers/Client/selectors';
+import { selectCart } from '@pages/Cart/selector';
+import { getUserCart } from '@pages/Cart/actions';
 
 import classes from './style.module.scss';
 
-const ProductDetail = ({ product, token }) => {
+const ProductDetail = ({ product, cart }) => {
   const { id } = useParams();
-  const [user, setUser] = useState('');
+  const [productInCart, setProductInCart] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setUser(jwtDecode(token));
     dispatch(
       getOneProduct(
         id,
-        () => {},
+        (dataProduct) => {
+          dispatch(
+            getUserCart({}, (dataCart) => {
+              const inCart = dataCart?.filter((item) => item?.productId === dataProduct?.id);
+              setProductInCart(inCart[0]);
+            })
+          );
+        },
         (err) => {
           if (err.statusCode === 404) navigate('/not-found');
         }
       )
     );
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   const handleAddToCart = () => {
     const payload = {
       productId: Number(id),
-      userId: Number(user?.id),
       count: 1,
     };
     dispatch(addToCart(payload, (cart) => {}));
@@ -51,9 +57,21 @@ const ProductDetail = ({ product, token }) => {
           <div className={classes.package}>{product?.packaging}</div>
           <div className={classes.price}>Rp {product?.price}</div>
 
-          <div className={classes.button} onClick={handleAddToCart}>
-            <AddShoppingCartRounded /> Tambah Keranjang
-          </div>
+          {productInCart ? (
+            <div className={classes.quantity}>
+              <div className={classes.remove}>
+                <Remove />
+              </div>
+              <div className={classes.count}>{productInCart.count}</div>
+              <div className={classes.add}>
+                <Add />
+              </div>
+            </div>
+          ) : (
+            <div className={classes.button} onClick={handleAddToCart}>
+              <AddShoppingCartRounded /> Tambah Keranjang
+            </div>
+          )}
         </div>
       </div>
       <div className={classes.detailContent}>
@@ -80,12 +98,12 @@ const ProductDetail = ({ product, token }) => {
 
 ProductDetail.propTypes = {
   product: PropTypes.object,
-  token: PropTypes.string,
+  cart: PropTypes.any,
 };
 
 const mapStateToProps = createStructuredSelector({
   product: selectProduct,
-  token: selectToken,
+  cart: selectCart,
 });
 
 export default connect(mapStateToProps)(ProductDetail);

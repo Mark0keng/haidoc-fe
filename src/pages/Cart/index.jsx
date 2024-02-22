@@ -1,33 +1,32 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { jwtDecode } from 'jwt-decode';
+import { pick } from 'lodash';
 import { Grid } from '@mui/material';
-import { AddBoxOutlined, IndeterminateCheckBoxOutlined, Title } from '@mui/icons-material';
+import { AddBoxOutlined, IndeterminateCheckBoxOutlined } from '@mui/icons-material';
 
-import { selectToken } from '@containers/Client/selectors';
 import { selectCart } from './selector';
-import { getManyCart } from './actions';
+import { getUserCart, updateCart } from './actions';
 
 import classes from './style.module.scss';
 
-const Cart = ({ token, cart }) => {
-  const [user, setUser] = useState('');
+const Cart = ({ cart }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setUser(jwtDecode(token));
-  }, []);
+    dispatch(getUserCart({}));
+  }, [dispatch]);
 
-  useEffect(() => {
-    user && dispatch(getManyCart({ userId: user?.id }));
-  }, [dispatch, user]);
+  const handleUpdateItem = (action, payload, cartId) => {
+    if (action === 'minus') payload = { ...payload, count: payload.count - 1 };
+    if (action === 'add') payload = { ...payload, count: payload.count + 1 };
 
-  console.log(cart);
+    dispatch(updateCart(payload, cartId));
+  };
 
   return (
-    <div>
+    <div className={classes.layout}>
       <div className={classes.navigation}>
         <div className={classes.item}>Alamat</div>
         <hr className={classes.border} />
@@ -41,34 +40,63 @@ const Cart = ({ token, cart }) => {
           <div className={classes.itemSection}>
             <div className={classes.title}>Daftar Pesanan</div>
             {cart?.map((item, index) => (
-              <Grid container spacing={3}>
-                <Grid item md={7}>
+              <Grid container spacing={3} marginBottom={2} key={index}>
+                <Grid item xs={6} md={7}>
                   <div className={classes.item}>
                     <img src={item?.products?.imageUrl} alt="product-img" className={classes.image} />
                     <div className={classes.infoItem}>
                       <div className={classes.name}>{item?.products?.name}</div>
-                      <div className={classes.name}>{item?.products?.packaging}</div>
+                      <div className={classes.package}>{item?.products?.packaging}</div>
                     </div>
                   </div>
                 </Grid>
-                <Grid item md={3}>
+                <Grid item xs={3} md={3}>
                   <div className={classes.quantity}>
-                    <div>
-                      <AddBoxOutlined fontSize="small" />
-                    </div>
-                    <div>{item?.count}</div>
-                    <div>
+                    <div
+                      onClick={() => handleUpdateItem('minus', pick(item, 'productId', 'userId', 'count'), item?.id)}
+                    >
                       <IndeterminateCheckBoxOutlined fontSize="small" />
                     </div>
+                    <div>{item?.count}</div>
+                    <div onClick={() => handleUpdateItem('add', pick(item, 'productId', 'userId', 'count'), item?.id)}>
+                      <AddBoxOutlined fontSize="small" />
+                    </div>
                   </div>
                 </Grid>
-                <Grid item md={2}>
+                <Grid item xs={3} md={2}>
                   <div className={classes.price}>Rp {item?.products?.price * item?.count}</div>
                 </Grid>
               </Grid>
             ))}
           </div>
-          <div className={classes.priceSection}></div>
+          <div className={classes.priceSection}>
+            <div className={classes.price}>
+              <div className={classes.title}>Ringkasan Pembayaran</div>
+
+              <div className={classes.totalItem}>
+                Total Item : Rp {cart?.reduce((result, item) => result + item?.products?.price * item?.count, 0)}
+              </div>
+              <div className={classes.shipping}>Biaya Pengiriman : </div>
+            </div>
+            <div className={classes.totalPaySection}>
+              <div className={classes.price}>
+                <div className={classes.title}>Pembayaranmu</div>
+
+                <div className={classes.totalItem}>
+                  Rp {cart?.reduce((result, item) => result + item?.products?.price * item?.count, 0)}
+                </div>
+              </div>
+            </div>
+            <div className={classes.addressSection}>
+              <div className={classes.price}>
+                <div className={classes.title}>Pembayaranmu</div>
+
+                <div className={classes.totalItem}>
+                  Rp {cart?.reduce((result, item) => result + item?.products?.price * item?.count, 0)}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -76,12 +104,10 @@ const Cart = ({ token, cart }) => {
 };
 
 Cart.propTypes = {
-  token: PropTypes.string,
   cart: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
-  token: selectToken,
   cart: selectCart,
 });
 

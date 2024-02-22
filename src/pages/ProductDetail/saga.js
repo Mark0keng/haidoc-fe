@@ -9,7 +9,7 @@ function* doGetOneProduct({ productId, cbSuccess, cbFailed }) {
   try {
     const product = yield call(getProductById, productId);
     yield put(setOneProduct(product.data));
-    cbSuccess && cbSuccess();
+    cbSuccess && cbSuccess(product.data);
   } catch (error) {
     if (error?.response?.data?.output?.payload) {
       cbFailed && cbFailed(error.response.data.output.payload);

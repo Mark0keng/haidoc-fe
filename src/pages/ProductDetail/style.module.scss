@@ -44,6 +44,38 @@
         align-items: center;
         padding: 12px;
       }
+      .quantity {
+        @include directionX;
+        gap: 12px;
+        align-items: center;
+        margin-top: 8px;
+        .add {
+          @include directionX;
+          justify-content: center;
+          align-items: center;
+          width: 20px;
+          height: 20px;
+          padding: 2px;
+          border: 1px solid #306dbd;
+          border-radius: 5px;
+          background-color: #306dbd;
+          color: #fff;
+          cursor: pointer;
+        }
+        .remove {
+          @include directionX;
+          justify-content: center;
+          align-items: center;
+          width: 20px;
+          height: 20px;
+          padding: 2px;
+          border: 1px solid #306dbd;
+          border-radius: 5px;
+          // background-color: #306dbd;
+          color: #306dbd;
+          cursor: pointer;
+        }
+      }
     }
   }
 
