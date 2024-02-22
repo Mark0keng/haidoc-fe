@@ -7,7 +7,9 @@ const urls = {
   ping: 'ping.json',
   register: 'register',
   login: 'login',
-  getProvince: 'province',
+  getProvince: 'address/province',
+  getCity: 'address/city',
+  createAddress: 'address/create',
   getProduct: 'product',
   createProduct: 'product/create',
   updateProduct: 'product/update',
@@ -38,27 +40,6 @@ export const callAPI = async (endpoint, method, header = {}, params = {}, data =
   });
 };
 
-export const callAPIRajaOngkir = async (endpoint, method, header = {}, params = {}, data = {}) => {
-  const defaultHeader = {
-    'Content-Type': 'application/json; charset=UTF-8',
-    key: '4aa0b220805c2e344482203cfb72a82a',
-  };
-
-  const headers = merge(defaultHeader, header);
-  const options = {
-    url: config.api.rajaongkir + endpoint,
-    method,
-    headers,
-    data,
-    params,
-  };
-
-  return request(options).then((response) => {
-    const responseAPI = response.data;
-    return responseAPI;
-  });
-};
-
 export const ping = () => callAPI(urls.ping, 'get');
 export const register = (payload) => callAPI(urls.register, 'post', {}, {}, payload);
 export const login = (payload) => callAPI(urls.login, 'post', {}, {}, payload);
@@ -76,4 +57,6 @@ export const getUserCart = (query) => callAPI(urls.getUserCart, 'get', {}, query
 export const createCart = (payload) => callAPI(urls.createCart, 'post', {}, {}, payload);
 export const updateCart = (payload, cartId) => callAPI(`${urls.updateCart}/${cartId}`, 'put', {}, {}, payload);
 
-export const getProvince = () => callAPIRajaOngkir(urls.getProvince, 'get');
+export const getProvince = (query) => callAPI(urls.getProvince, 'get', {}, query);
+export const getCity = (query) => callAPI(urls.getCity, 'get', {}, query);
+export const createAddress = (payload) => callAPI(urls.createAddress, 'post', {}, {}, payload);

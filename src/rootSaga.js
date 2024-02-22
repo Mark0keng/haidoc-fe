@@ -6,7 +6,16 @@ import loginSaga from '@pages/Login/saga';
 import productDashboardSaga from '@pages/ProductDashboard/saga';
 import productDetailSaga from '@pages/ProductDetail/saga';
 import cartSaga from '@pages/Cart/saga';
+import addressSaga from '@pages/Address/saga';
 
 export default function* rootSaga() {
-  yield all([appSaga(), registerSaga(), loginSaga(), productDashboardSaga(), productDetailSaga(), cartSaga()]);
+  yield all([
+    appSaga(),
+    registerSaga(),
+    loginSaga(),
+    productDashboardSaga(),
+    productDetailSaga(),
+    addressSaga(),
+    cartSaga(),
+  ]);
 }

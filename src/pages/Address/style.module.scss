@@ -1,0 +1,67 @@
+@import '@styles/base.scss';
+
+.layout {
+  width: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+
+  .navigation {
+    @include directionX;
+    height: 64px;
+    padding: 0px 10%;
+    background-color: var(--color-bg);
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #000;
+    margin-bottom: 28px;
+
+    .item {
+      cursor: pointer;
+      color: var(--color-text);
+    }
+    .border {
+      color: #000;
+      // width: 80%;
+    }
+  }
+
+  .card {
+    width: 90%;
+    padding: 24px;
+    background-color: var(--color-bg);
+    border-radius: 10px;
+    margin: auto;
+    box-sizing: border-box;
+    @include apply-at-sm-size {
+      width: 50%;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .formControl {
+      @include directionY;
+      gap: 4px;
+      .label {
+        @include label;
+      }
+      .input {
+        @include input;
+        width: 95%;
+      }
+
+      .select {
+        @include input;
+      }
+    }
+
+    .button {
+      @include button;
+      background-color: var(--color-text);
+      color: var(--color-bg);
+      text-align: center;
+    }
+  }
+}

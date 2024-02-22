@@ -9,7 +9,6 @@ const env = { production, development, test }[nodeENV];
 const config = {
   api: {
     host: env.API_HOST,
-    rajaongkir: env.API_RAJAONGKIR,
   },
 };
 

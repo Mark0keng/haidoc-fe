@@ -1,5 +1,6 @@
 import AppLayout from '@layouts/AppLayout';
 import MainLayout from '@layouts/MainLayout';
+import Address from '@pages/Address';
 import Cart from '@pages/Cart';
 import Dashboard from '@pages/Dashboard/Index';
 
@@ -44,6 +45,13 @@ const routes = [
     name: 'Register',
     protected: false,
     component: Register,
+  },
+  {
+    path: '/checkout/address',
+    name: 'Address',
+    protected: true,
+    component: Address,
+    layout: MainLayout,
   },
   {
     path: '/checkout/cart',
