@@ -3,4 +3,4 @@ import { initialState } from './reducer';
 
 const selectAdressState = (state) => state.address || initialState;
 
-export const selectProvince = createSelector(selectAdressState, (state) => state.province);
+export const selectAddress = createSelector(selectAdressState, (state) => state.address);

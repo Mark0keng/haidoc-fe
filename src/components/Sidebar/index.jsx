@@ -3,26 +3,37 @@ import { useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { createStructuredSelector } from 'reselect';
 import { useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import KeyboardDoubleArrowLeftRounded from '@mui/icons-material/KeyboardDoubleArrowLeftRounded';
-import { HomeOutlined, HomeRounded, LogoutOutlined, MedicationOutlined } from '@mui/icons-material';
+import { HomeOutlined, LogoutOutlined, MedicationOutlined } from '@mui/icons-material';
 
 import { selectToken } from '@containers/Client/selectors';
 
 import classes from './style.module.scss';
+import { setLogin, setToken } from '@containers/Client/actions';
+import { setCart } from '@pages/Cart/actions';
+import { setAddress } from '@pages/Address/actions';
 
 const Sidebar = ({ token }) => {
   const [user, setUser] = useState({});
   const [isOpen, setIsOpen] = useState(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setUser(jwtDecode(token));
+    token !== null && setUser(jwtDecode(token));
   }, []);
 
   const handleOpen = () => {
     setIsOpen(!isOpen);
+  };
+
+  const logout = () => {
+    dispatch(setLogin(false));
+    dispatch(setToken(null));
+    dispatch(setCart(null));
+    dispatch(setAddress(null));
   };
 
   return (
@@ -54,7 +65,7 @@ const Sidebar = ({ token }) => {
             Product
           </div>
         </div>
-        <div className={classes.item}>
+        <div className={classes.item} onClick={logout}>
           <LogoutOutlined />
           <div className={classes.name}>Logout</div>
         </div>

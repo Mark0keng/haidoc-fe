@@ -1,19 +1,18 @@
 import { produce } from 'immer';
+import { SET_ADDRESS } from './constants';
 
 export const initialState = {
-  provinces: [],
+  address: null,
 };
 
-export const storedKey = ['provinces'];
+export const storedKey = ['address'];
 
 const addressReducer = (state = initialState, action) =>
   produce(state, (draft) => {
-    switch (
-      action.type
-      // case SET_PROVINCE:
-      //   draft.provinces = action.provinces;
-      //   break;
-    ) {
+    switch (action.type) {
+      case SET_ADDRESS:
+        draft.address = action.address;
+        break;
     }
   });
 

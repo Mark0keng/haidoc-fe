@@ -41,6 +41,11 @@
       font-weight: 700;
     }
 
+    .error {
+      @include error;
+      margin: 12px 0px;
+    }
+
     .formControl {
       @include directionY;
       gap: 4px;

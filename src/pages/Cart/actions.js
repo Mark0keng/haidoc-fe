@@ -1,4 +1,4 @@
-import { GET_CART, GET_USER_CART, SET_CART, UPDATE_CART } from './constants';
+import { GET_CART, GET_SHIPPING_COST, GET_USER_CART, SET_CART, UPDATE_CART } from './constants';
 
 export const setCart = (cart) => ({
   type: SET_CART,
@@ -23,6 +23,13 @@ export const updateCart = (payload, cartId, cbSuccess, cbFailed) => ({
   type: UPDATE_CART,
   payload,
   cartId,
+  cbSuccess,
+  cbFailed,
+});
+
+export const getShippingCost = (query, cbSuccess, cbFailed) => ({
+  type: GET_SHIPPING_COST,
+  query,
   cbSuccess,
   cbFailed,
 });

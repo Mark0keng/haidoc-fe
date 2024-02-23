@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { Dialog } from '@mui/material';
 
-import { createProduct, setAllProduct } from '@pages/ProductDashboard/actions';
+import { createProduct, getAllProduct } from '@pages/ProductDashboard/actions';
 
 import classes from './style.module.scss';
 
@@ -56,8 +56,7 @@ const CreateProduct = ({ isOpen, onClose }) => {
       createProduct(
         payload,
         () => {
-          const products = dispatch(getAllProduct({ limit: 3, page: 0 }));
-          dispatch(setAllProduct(products.rows));
+          dispatch(getAllProduct({ limit: 3, page: 0 }));
           onClose();
         },
         (err) => {

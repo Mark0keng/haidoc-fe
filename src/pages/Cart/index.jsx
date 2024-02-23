@@ -1,21 +1,49 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { pick } from 'lodash';
 import { Grid } from '@mui/material';
-import { AddBoxOutlined, IndeterminateCheckBoxOutlined } from '@mui/icons-material';
+import { AddBoxOutlined, IndeterminateCheckBoxOutlined, Room } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 import { selectCart } from './selector';
-import { getUserCart, updateCart } from './actions';
+import { getShippingCost, getUserCart, updateCart } from './actions';
+import { getAddress } from '@pages/Address/actions';
+import { selectAddress } from '@pages/Address/selector';
 
 import classes from './style.module.scss';
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart, address }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [shippingCost, setShippingCost] = useState('');
 
   useEffect(() => {
-    dispatch(getUserCart({}));
+    dispatch(
+      getAddress(
+        {},
+        (addressData) => {
+          dispatch(getUserCart({}));
+          dispatch(
+            getShippingCost(
+              {
+                origin: 153,
+                destination: address?.cityId,
+                weight: 1000,
+                courier: 'jne',
+              },
+              (costData) => {
+                costData && setShippingCost(costData);
+              }
+            )
+          );
+        },
+        (err) => {
+          err.statusCode === 404 && navigate('/checkout/address');
+        }
+      )
+    );
   }, [dispatch]);
 
   const handleUpdateItem = (action, payload, cartId) => {
@@ -53,12 +81,16 @@ const Cart = ({ cart }) => {
                 <Grid item xs={3} md={3}>
                   <div className={classes.quantity}>
                     <div
+                      className={classes.add}
                       onClick={() => handleUpdateItem('minus', pick(item, 'productId', 'userId', 'count'), item?.id)}
                     >
                       <IndeterminateCheckBoxOutlined fontSize="small" />
                     </div>
                     <div>{item?.count}</div>
-                    <div onClick={() => handleUpdateItem('add', pick(item, 'productId', 'userId', 'count'), item?.id)}>
+                    <div
+                      className={classes.minus}
+                      onClick={() => handleUpdateItem('add', pick(item, 'productId', 'userId', 'count'), item?.id)}
+                    >
                       <AddBoxOutlined fontSize="small" />
                     </div>
                   </div>
@@ -69,32 +101,45 @@ const Cart = ({ cart }) => {
               </Grid>
             ))}
           </div>
-          <div className={classes.priceSection}>
-            <div className={classes.price}>
+          <div className={classes.paymentSection}>
+            <div className={classes.subSection}>
               <div className={classes.title}>Ringkasan Pembayaran</div>
 
               <div className={classes.totalItem}>
-                Total Item : Rp {cart?.reduce((result, item) => result + item?.products?.price * item?.count, 0)}
+                <div>Total Item :</div>
+                <div>Rp {cart?.reduce((result, item) => result + item?.products?.price * item?.count, 0)}</div>
               </div>
-              <div className={classes.shipping}>Biaya Pengiriman : </div>
+              <div className={classes.shipping}>
+                <div>Biaya Pengiriman :</div>
+                <div>Rp {shippingCost ? shippingCost : 0}</div>
+              </div>
             </div>
-            <div className={classes.totalPaySection}>
+            <div className={classes.subSection}>
               <div className={classes.price}>
                 <div className={classes.title}>Pembayaranmu</div>
 
-                <div className={classes.totalItem}>
+                <div className={classes.totalPrice}>
                   Rp {cart?.reduce((result, item) => result + item?.products?.price * item?.count, 0)}
                 </div>
               </div>
             </div>
-            <div className={classes.addressSection}>
-              <div className={classes.price}>
-                <div className={classes.title}>Pembayaranmu</div>
-
-                <div className={classes.totalItem}>
-                  Rp {cart?.reduce((result, item) => result + item?.products?.price * item?.count, 0)}
+            <div className={classes.subSection}>
+              <div className={classes.header}>
+                <div className={classes.title}>Alamat</div>
+                <div className={classes.changeAddress} onClick={() => navigate('/checkout/address')}>
+                  Ubah
                 </div>
               </div>
+
+              <div className={classes.addressBox}>
+                <Room />
+                <div className={classes.address}>
+                  <div>{address?.fullAddress}</div>
+                </div>
+              </div>
+            </div>
+            <div className={classes.submitSection}>
+              <div className={classes.button}>Berikutnya</div>
             </div>
           </div>
         </div>
@@ -105,10 +150,12 @@ const Cart = ({ cart }) => {
 
 Cart.propTypes = {
   cart: PropTypes.array,
+  address: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   cart: selectCart,
+  address: selectAddress,
 });
 
 export default connect(mapStateToProps)(Cart);

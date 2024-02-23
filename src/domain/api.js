@@ -9,7 +9,10 @@ const urls = {
   login: 'login',
   getProvince: 'address/province',
   getCity: 'address/city',
+  getShippingCost: 'address/shipping-cost',
+  getAddress: 'address',
   createAddress: 'address/create',
+  updateAddress: 'address/update',
   getProduct: 'product',
   createProduct: 'product/create',
   updateProduct: 'product/update',
@@ -54,9 +57,12 @@ export const deleteProduct = (productId) => callAPI(`${urls.deleteProduct}/${pro
 
 export const getCart = (query) => callAPI(urls.getCart, 'get', {}, query);
 export const getUserCart = (query) => callAPI(urls.getUserCart, 'get', {}, query);
+export const getShippingCost = (query) => callAPI(urls.getShippingCost, 'get', {}, query);
 export const createCart = (payload) => callAPI(urls.createCart, 'post', {}, {}, payload);
 export const updateCart = (payload, cartId) => callAPI(`${urls.updateCart}/${cartId}`, 'put', {}, {}, payload);
 
 export const getProvince = (query) => callAPI(urls.getProvince, 'get', {}, query);
 export const getCity = (query) => callAPI(urls.getCity, 'get', {}, query);
+export const getAddress = (query) => callAPI(urls.getAddress, 'get', {}, query);
 export const createAddress = (payload) => callAPI(urls.createAddress, 'post', {}, {}, payload);
+export const updateAddress = (payload) => callAPI(urls.updateAddress, 'put', {}, {}, payload);

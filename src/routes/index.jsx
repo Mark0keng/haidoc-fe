@@ -70,7 +70,7 @@ const routes = [
   {
     path: '/dashboard/product',
     name: 'Product Dashboard',
-    protected: false,
+    protected: true,
     component: ProductDashboard,
     layout: AppLayout,
   },
