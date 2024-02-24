@@ -8,7 +8,7 @@ import { AddBoxOutlined, IndeterminateCheckBoxOutlined, Room } from '@mui/icons-
 import { useNavigate } from 'react-router-dom';
 
 import { selectCart } from './selector';
-import { getShippingCost, getUserCart, updateCart } from './actions';
+import { deleteCart, getShippingCost, getUserCart, updateCart } from './actions';
 import { getAddress } from '@pages/Address/actions';
 import { selectAddress } from '@pages/Address/selector';
 
@@ -18,12 +18,13 @@ const Cart = ({ cart, address }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [shippingCost, setShippingCost] = useState('');
+  const [totalPrice, setTotalPrice] = useState('');
 
   useEffect(() => {
     dispatch(
       getAddress(
         {},
-        (addressData) => {
+        () => {
           dispatch(getUserCart({}));
           dispatch(
             getShippingCost(
@@ -46,11 +47,24 @@ const Cart = ({ cart, address }) => {
     );
   }, [dispatch]);
 
+  useEffect(() => {
+    const totalPrice = cart?.reduce((result, item) => result + item?.products?.price * item?.count, 0);
+    cart && setTotalPrice(totalPrice + shippingCost);
+  }, [cart]);
+
   const handleUpdateItem = (action, payload, cartId) => {
     if (action === 'minus') payload = { ...payload, count: payload.count - 1 };
     if (action === 'add') payload = { ...payload, count: payload.count + 1 };
 
-    dispatch(updateCart(payload, cartId));
+    if (payload?.count < 1) {
+      dispatch(
+        deleteCart(cartId, () => {
+          dispatch(getUserCart({}));
+        })
+      );
+    } else {
+      dispatch(updateCart(payload, cartId));
+    }
   };
 
   return (
@@ -119,7 +133,8 @@ const Cart = ({ cart, address }) => {
                 <div className={classes.title}>Pembayaranmu</div>
 
                 <div className={classes.totalPrice}>
-                  Rp {cart?.reduce((result, item) => result + item?.products?.price * item?.count, 0)}
+                  {/* Rp {cart?.reduce((result, item) => result + item?.products?.price * item?.count, 0)} */}
+                  Rp {totalPrice}
                 </div>
               </div>
             </div>

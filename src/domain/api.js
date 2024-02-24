@@ -21,6 +21,7 @@ const urls = {
   getUserCart: 'cart/user',
   createCart: 'cart/create',
   updateCart: 'cart/update',
+  deleteCart: 'cart/delete',
 };
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
@@ -60,6 +61,7 @@ export const getUserCart = (query) => callAPI(urls.getUserCart, 'get', {}, query
 export const getShippingCost = (query) => callAPI(urls.getShippingCost, 'get', {}, query);
 export const createCart = (payload) => callAPI(urls.createCart, 'post', {}, {}, payload);
 export const updateCart = (payload, cartId) => callAPI(`${urls.updateCart}/${cartId}`, 'put', {}, {}, payload);
+export const deleteCart = (cartId) => callAPI(`${urls.deleteCart}/${cartId}`, 'delete');
 
 export const getProvince = (query) => callAPI(urls.getProvince, 'get', {}, query);
 export const getCity = (query) => callAPI(urls.getCity, 'get', {}, query);

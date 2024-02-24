@@ -9,7 +9,7 @@ import { Add, Remove } from '@mui/icons-material';
 import { addToCart, getOneProduct } from './actions';
 import { selectProduct } from './selector';
 import { selectCart } from '@pages/Cart/selector';
-import { getUserCart } from '@pages/Cart/actions';
+import { deleteCart, getUserCart, updateCart } from '@pages/Cart/actions';
 
 import classes from './style.module.scss';
 
@@ -43,7 +43,45 @@ const ProductDetail = ({ product, cart }) => {
       productId: Number(id),
       count: 1,
     };
-    dispatch(addToCart(payload, (cart) => {}));
+    dispatch(
+      addToCart(payload, () => {
+        dispatch(
+          getUserCart({}, (dataCart) => {
+            const inCart = dataCart?.filter((item) => item?.productId === product?.id);
+            setProductInCart(inCart[0]);
+          })
+        );
+      })
+    );
+  };
+
+  const handleUpdateItem = (action, payload, cartId) => {
+    if (action === 'minus') payload = { ...payload, count: payload.count - 1 };
+    if (action === 'add') payload = { ...payload, count: payload.count + 1 };
+
+    if (payload?.count < 1) {
+      dispatch(
+        deleteCart(cartId, () => {
+          dispatch(
+            getUserCart({}, (dataCart) => {
+              const inCart = dataCart?.filter((item) => item?.productId === product?.id);
+              setProductInCart(inCart[0]);
+            })
+          );
+        })
+      );
+    } else {
+      dispatch(
+        updateCart(payload, cartId, () => {
+          dispatch(
+            getUserCart({}, (dataCart) => {
+              const inCart = dataCart?.filter((item) => item?.productId === product?.id);
+              setProductInCart(inCart[0]);
+            })
+          );
+        })
+      );
+    }
   };
 
   return (
@@ -59,11 +97,31 @@ const ProductDetail = ({ product, cart }) => {
 
           {productInCart ? (
             <div className={classes.quantity}>
-              <div className={classes.remove}>
+              <div
+                className={classes.remove}
+                onClick={() => {
+                  const payload = {
+                    productId: productInCart?.productId,
+                    userId: productInCart?.userId,
+                    count: productInCart?.count,
+                  };
+                  handleUpdateItem('minus', payload, productInCart?.id);
+                }}
+              >
                 <Remove />
               </div>
               <div className={classes.count}>{productInCart.count}</div>
-              <div className={classes.add}>
+              <div
+                className={classes.add}
+                onClick={() => {
+                  const payload = {
+                    productId: productInCart?.productId,
+                    userId: productInCart?.userId,
+                    count: productInCart?.count,
+                  };
+                  handleUpdateItem('add', payload, productInCart?.id);
+                }}
+              >
                 <Add />
               </div>
             </div>
