@@ -13,6 +13,7 @@ import { getAddress } from '@pages/Address/actions';
 import { selectAddress } from '@pages/Address/selector';
 
 import classes from './style.module.scss';
+import { createOrder, createOrderItem } from '@pages/Order/actions';
 
 const Cart = ({ cart, address }) => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const Cart = ({ cart, address }) => {
               },
               (costData) => {
                 costData && setShippingCost(costData);
+                countTotalPrice(cart, costData);
               }
             )
           );
@@ -48,9 +50,13 @@ const Cart = ({ cart, address }) => {
   }, [dispatch]);
 
   useEffect(() => {
-    const totalPrice = cart?.reduce((result, item) => result + item?.products?.price * item?.count, 0);
-    cart && setTotalPrice(totalPrice + shippingCost);
+    countTotalPrice(cart, shippingCost);
   }, [cart]);
+
+  const countTotalPrice = (cart, cost) => {
+    const totalPrice = cart?.reduce((result, item) => result + item?.products?.price * item?.count, 0);
+    cart && setTotalPrice(totalPrice + cost);
+  };
 
   const handleUpdateItem = (action, payload, cartId) => {
     if (action === 'minus') payload = { ...payload, count: payload.count - 1 };
@@ -66,6 +72,29 @@ const Cart = ({ cart, address }) => {
       dispatch(updateCart(payload, cartId));
     }
   };
+
+  const handleSubmit = () => {
+    const payload = {
+      grossAmount: totalPrice + shippingCost,
+    };
+    dispatch(
+      createOrder(payload, (orderData) => {
+        for (const item of cart) {
+          dispatch(
+            createOrderItem({
+              orderId: orderData?.orderId,
+              productName: item.products.name,
+              productPrice: item.products.price,
+              count: item.count,
+            })
+          );
+        }
+        navigate('checkout/order');
+      })
+    );
+  };
+
+  // console.log(cart);
 
   return (
     <div className={classes.layout}>
@@ -132,10 +161,7 @@ const Cart = ({ cart, address }) => {
               <div className={classes.price}>
                 <div className={classes.title}>Pembayaranmu</div>
 
-                <div className={classes.totalPrice}>
-                  {/* Rp {cart?.reduce((result, item) => result + item?.products?.price * item?.count, 0)} */}
-                  Rp {totalPrice}
-                </div>
+                <div className={classes.totalPrice}>Rp {totalPrice}</div>
               </div>
             </div>
             <div className={classes.subSection}>
@@ -154,7 +180,9 @@ const Cart = ({ cart, address }) => {
               </div>
             </div>
             <div className={classes.submitSection}>
-              <div className={classes.button}>Berikutnya</div>
+              <div className={classes.button} onClick={handleSubmit}>
+                Berikutnya
+              </div>
             </div>
           </div>
         </div>

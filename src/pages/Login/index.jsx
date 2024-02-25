@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import classes from './style.module.scss';
-import { useState } from 'react';
 import { login } from './actions';
+import { setAddress } from '@pages/Address/actions';
+import { setCart } from '@pages/Cart/actions';
+
+import classes from './style.module.scss';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -21,6 +24,8 @@ const Login = () => {
       login(
         payload,
         () => {
+          dispatch(setAddress(null));
+          dispatch(setCart(null));
           navigate('/dashboard');
         },
         (err) => {

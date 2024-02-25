@@ -68,7 +68,6 @@ function* doGetShippingCost({ query, cbSuccess, cbFailed }) {
   yield put(setLoading(true));
   try {
     const cost = yield call(getShippingCost, query);
-    console.log(cost);
 
     cbSuccess && cbSuccess(cost?.data?.results[0]?.costs[0]?.cost[0]?.value);
   } catch (error) {

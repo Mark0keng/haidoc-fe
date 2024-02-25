@@ -28,8 +28,10 @@
       position: relative;
       justify-content: space-between;
       .itemSection {
+        padding: 12px;
         width: 100%;
         height: 100vh;
+        box-sizing: border-box;
         .title {
           font-size: 18px;
           font-weight: 500;
@@ -157,6 +159,7 @@
           .button {
             @include button;
             text-align: center;
+            margin-bottom: 12px;
           }
         }
       }

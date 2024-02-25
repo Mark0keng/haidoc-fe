@@ -1,0 +1,53 @@
+@import '@styles/base.scss';
+
+.layout {
+  @include directionX;
+  justify-content: center;
+  width: 100vw;
+  padding-top: 24px;
+
+  .card {
+    width: 80%;
+    background-color: var(--color-bg);
+    border-radius: 15px;
+    padding: 4%;
+    box-sizing: border-box;
+
+    .header {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .itemSection {
+      @include directionY;
+      gap: 3px;
+      margin-bottom: 20px;
+
+      .title {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+
+      .item {
+        @include directionX;
+        justify-content: space-between;
+        font-size: 14px;
+      }
+    }
+
+    .billSection {
+      .title {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+    }
+
+    .pay {
+      @include button;
+      text-align: center;
+    }
+  }
+}
