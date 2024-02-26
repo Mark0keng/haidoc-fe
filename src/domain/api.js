@@ -24,6 +24,7 @@ const urls = {
   deleteCart: 'cart/delete',
   getUserOrder: 'order/user',
   createOrder: 'order/create',
+  updateOrder: 'order/update',
   getOrderItem: 'order-item',
   createOrderItem: 'order-item/create',
   getPayment: 'payment',
@@ -76,6 +77,7 @@ export const updateAddress = (payload) => callAPI(urls.updateAddress, 'put', {},
 
 export const getUserOrder = (query) => callAPI(urls.getUserOrder, 'get', {}, query);
 export const createOrder = (payload) => callAPI(urls.createOrder, 'post', {}, {}, payload);
+export const updateOrder = (payload, orderId) => callAPI(`${urls.updateOrder}/${orderId}`, 'put', {}, {}, payload);
 
 export const getOrderItem = (query) => callAPI(urls.getOrderItem, 'get', {}, query);
 export const createOrderItem = (payload) => callAPI(urls.createOrderItem, 'post', {}, {}, payload);

@@ -16,7 +16,12 @@
     .header {
       font-size: 18px;
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
+    }
+
+    .orderId {
+      font-size: 12px;
+      margin-bottom: 12px;
     }
 
     .itemSection {
@@ -37,6 +42,15 @@
       }
     }
 
+    .shippingSection {
+      margin-bottom: 12px;
+      .title {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+    }
+
     .billSection {
       .title {
         font-size: 16px;
@@ -48,6 +62,12 @@
     .pay {
       @include button;
       text-align: center;
+    }
+
+    .payDisable {
+      @include button;
+      text-align: center;
+      background-color: #b5c0d0;
     }
   }
 }

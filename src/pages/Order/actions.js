@@ -1,4 +1,11 @@
-import { CREATE_ORDER, CREATE_ORDER_ITEM, GET_ORDER_ITEM, GET_PAYMENT, GET_USER_ORDER } from './constants';
+import {
+  CREATE_ORDER,
+  CREATE_ORDER_ITEM,
+  GET_ORDER_ITEM,
+  GET_PAYMENT,
+  GET_USER_ORDER,
+  UPDATE_ORDER,
+} from './constants';
 
 export const getUserOrder = (query, cbSuccess, cbFailed) => ({
   type: GET_USER_ORDER,
@@ -10,6 +17,14 @@ export const getUserOrder = (query, cbSuccess, cbFailed) => ({
 export const createOrder = (payload, cbSuccess, cbFailed) => ({
   type: CREATE_ORDER,
   payload,
+  cbSuccess,
+  cbFailed,
+});
+
+export const updateOrder = (payload, orderId, cbSuccess, cbFailed) => ({
+  type: UPDATE_ORDER,
+  payload,
+  orderId,
   cbSuccess,
   cbFailed,
 });

@@ -53,6 +53,7 @@ const routes = [
     name: 'Order',
     protected: true,
     component: OrderList,
+    layout: MainLayout,
   },
   {
     path: '/checkout/address',

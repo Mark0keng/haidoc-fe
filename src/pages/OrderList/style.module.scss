@@ -1,0 +1,52 @@
+@import '@styles/base.scss';
+
+.layout {
+  @include directionX;
+  // width: 100vw;
+  justify-content: center;
+  align-items: center;
+  padding-top: 3%;
+
+  .orderSection {
+    width: 80%;
+    @include directionY;
+    align-items: center;
+    gap: 12px;
+    box-sizing: border-box;
+
+    .card {
+      width: 100%;
+      background-color: var(--color-bg);
+      border-radius: 10px;
+      padding: 12px;
+      cursor: pointer;
+
+      .orderId {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      .info {
+        @include directionX;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        .statusPending {
+          background-color: #fba834;
+          padding: 2px 8px;
+          font-size: 13px;
+          border-radius: 25px;
+          color: white;
+        }
+
+        .amount {
+          font-size: 14px;
+          font-weight: 500;
+        }
+      }
+      .createdAt {
+        font-size: 12px;
+      }
+    }
+  }
+}

@@ -1,32 +1,63 @@
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-import { getOrderItem, getPayment, getUserOrder } from './actions';
+import { getOrderItem, getPayment, getUserOrder, updateOrder } from './actions';
 
 import classes from './style.module.scss';
 
 const Order = () => {
   const [order, setOrder] = useState('');
   const [orderItem, setOrderItem] = useState('');
-  const [token, setToken] = useState('');
   const { orderId } = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handlePayment = () => {
     dispatch(
       getPayment({ orderId }, (token) => {
-        console.log(token);
         snap.pay(token, {
           onSuccess: function (result) {
-            Navigate();
+            dispatch(
+              updateOrder(
+                {
+                  orderId: order?.orderId,
+                  grossAmount: order?.grossAmount,
+                  shippingCost: order?.shippingCost,
+                  userId: order?.userId,
+                  status: 'success',
+                },
+                order?.id,
+                () => {
+                  dispatch(
+                    getUserOrder({ orderId }, (orderData) => {
+                      setOrder(orderData[0]);
+                    })
+                  );
+                }
+              )
+            );
           },
-          onPending: function (result) {
-            document.getElementById('snap-midtrans').innerHTML += JSON.stringify(result, null, 2);
-          },
+          onPending: function (result) {},
           onError: function (result) {
-            document.getElementById('snap-midtrans').innerHTML += JSON.stringify(result, null, 2);
+            dispatch(
+              updateOrder(
+                {
+                  orderId: order?.orderId,
+                  grossAmount: order?.grossAmount,
+                  shippingCost: order?.shippingCost,
+                  userId: order?.userId,
+                  status: 'failed',
+                },
+                order?.id,
+                () => {
+                  dispatch(
+                    getUserOrder({ orderId }, (orderData) => {
+                      setOrder(orderData[0]);
+                    })
+                  );
+                }
+              )
+            );
           },
         });
       })
@@ -49,13 +80,13 @@ const Order = () => {
     <div className={classes.layout}>
       <div className={classes.card}>
         <div className={classes.header}>Tagihan</div>
-
+        <div className={classes.orderId}>#{order?.orderId}</div>
         <div className={classes.itemSection}>
-          <div className={classes.title}>List Pembelian</div>
+          <div className={classes.title}>List Barang</div>
           {orderItem &&
             orderItem?.map((item, index) => (
               <div className={classes.item} key={index}>
-                <div className={classes.name}>{item?.productName}</div>
+                <div className={classes.name}>&#x2022; {item?.productName}</div>
                 <div className={classes.quantity}>x{item?.count}</div>
 
                 <div>
@@ -66,17 +97,23 @@ const Order = () => {
             ))}
         </div>
 
+        <div className={classes.shippingSection}>
+          <div className={classes.title}>Biaya Pengiriman</div>
+          <div className={classes.bill}>Rp {order?.shippingCost}</div>
+        </div>
+
         <div className={classes.billSection}>
           <div className={classes.title}>Pembayaranmu</div>
           <div className={classes.bill}>Rp {order?.grossAmount}</div>
         </div>
 
-        <div className={classes.pay} onClick={handlePayment}>
-          Bayar
-        </div>
+        {order?.status === 'pending' && (
+          <div className={classes.pay} onClick={handlePayment}>
+            Bayar
+          </div>
+        )}
+        {order?.status === 'success' && <div className={classes.payDisable}>Pembayaran Sukses</div>}
       </div>
-
-      <div id="snap-midtrans"></div>
     </div>
   );
 };

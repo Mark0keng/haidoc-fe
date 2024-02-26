@@ -8,12 +8,12 @@ import { AddBoxOutlined, IndeterminateCheckBoxOutlined, Room } from '@mui/icons-
 import { useNavigate } from 'react-router-dom';
 
 import { selectCart } from './selector';
-import { deleteCart, getShippingCost, getUserCart, updateCart } from './actions';
-import { getAddress } from '@pages/Address/actions';
+import { deleteCart, getShippingCost, getUserCart, setCart, updateCart } from './actions';
+import { getAddress, setAddress } from '@pages/Address/actions';
 import { selectAddress } from '@pages/Address/selector';
+import { createOrder, createOrderItem } from '@pages/Order/actions';
 
 import classes from './style.module.scss';
-import { createOrder, createOrderItem } from '@pages/Order/actions';
 
 const Cart = ({ cart, address }) => {
   const dispatch = useDispatch();
@@ -43,7 +43,10 @@ const Cart = ({ cart, address }) => {
           );
         },
         (err) => {
-          err.statusCode === 404 && navigate('/checkout/address');
+          if (err.statusCode === 404) {
+            dispatch(setAddress(null));
+            navigate('/checkout/address');
+          }
         }
       )
     );
@@ -75,7 +78,9 @@ const Cart = ({ cart, address }) => {
 
   const handleSubmit = () => {
     const payload = {
-      grossAmount: totalPrice + shippingCost,
+      grossAmount: totalPrice,
+      shippingCost,
+      status: 'pending',
     };
     dispatch(
       createOrder(payload, (orderData) => {
@@ -89,6 +94,11 @@ const Cart = ({ cart, address }) => {
             })
           );
         }
+
+        for (const item of cart) {
+          dispatch(deleteCart(item?.id));
+        }
+        dispatch(setCart([]));
         navigate(`/checkout/order/${orderData?.orderId}`);
       })
     );

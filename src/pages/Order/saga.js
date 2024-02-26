@@ -1,7 +1,14 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { setLoading } from '@containers/App/actions';
-import { createOrder, createOrderItem, getOrderItem, getPayment, getUserOrder } from '@domain/api';
-import { CREATE_ORDER, CREATE_ORDER_ITEM, GET_ORDER_ITEM, GET_PAYMENT, GET_USER_ORDER } from './constants';
+import { createOrder, createOrderItem, getOrderItem, getPayment, getUserOrder, updateOrder } from '@domain/api';
+import {
+  CREATE_ORDER,
+  CREATE_ORDER_ITEM,
+  GET_ORDER_ITEM,
+  GET_PAYMENT,
+  GET_USER_ORDER,
+  UPDATE_ORDER,
+} from './constants';
 
 function* doGetUserOrder({ query, cbSuccess, cbFailed }) {
   yield put(setLoading(true));
@@ -23,6 +30,20 @@ function* doCreateOrder({ payload, cbSuccess, cbFailed }) {
     const order = yield call(createOrder, payload);
 
     cbSuccess && cbSuccess(order?.data);
+  } catch (error) {
+    if (error?.response?.data?.output?.payload) {
+      cbFailed && cbFailed(error.response.data.output.payload);
+    }
+  }
+  yield put(setLoading(false));
+}
+
+function* doUpdateOrder({ payload, orderId, cbSuccess, cbFailed }) {
+  yield put(setLoading(true));
+  try {
+    yield call(updateOrder, payload, orderId);
+
+    cbSuccess && cbSuccess();
   } catch (error) {
     if (error?.response?.data?.output?.payload) {
       cbFailed && cbFailed(error.response.data.output.payload);
@@ -76,6 +97,7 @@ function* doGetPayment({ query, cbSuccess, cbFailed }) {
 export default function* orderSaga() {
   yield takeLatest(GET_USER_ORDER, doGetUserOrder);
   yield takeLatest(CREATE_ORDER, doCreateOrder);
+  yield takeLatest(UPDATE_ORDER, doUpdateOrder);
   yield takeLatest(GET_ORDER_ITEM, doGetOrderItem);
   yield takeLatest(CREATE_ORDER_ITEM, doCreateOrderItem);
   yield takeLatest(GET_PAYMENT, doGetPayment);
