@@ -1,8 +1,8 @@
-import { CREATE_ORDER, CREATE_ORDER_ITEM, GET_ORDER, GET_ORDER_ITEM } from './constants';
+import { CREATE_ORDER, CREATE_ORDER_ITEM, GET_ORDER_ITEM, GET_PAYMENT, GET_USER_ORDER } from './constants';
 
-export const getOrder = (orderId, cbSuccess, cbFailed) => ({
-  type: GET_ORDER,
-  orderId,
+export const getUserOrder = (query, cbSuccess, cbFailed) => ({
+  type: GET_USER_ORDER,
+  query,
   cbSuccess,
   cbFailed,
 });
@@ -14,9 +14,9 @@ export const createOrder = (payload, cbSuccess, cbFailed) => ({
   cbFailed,
 });
 
-export const getOrderItem = (orderId, cbSuccess, cbFailed) => ({
+export const getOrderItem = (query, cbSuccess, cbFailed) => ({
   type: GET_ORDER_ITEM,
-  orderId,
+  query,
   cbSuccess,
   cbFailed,
 });
@@ -24,6 +24,13 @@ export const getOrderItem = (orderId, cbSuccess, cbFailed) => ({
 export const createOrderItem = (payload, cbSuccess, cbFailed) => ({
   type: CREATE_ORDER_ITEM,
   payload,
+  cbSuccess,
+  cbFailed,
+});
+
+export const getPayment = (query, cbSuccess, cbFailed) => ({
+  type: GET_PAYMENT,
+  query,
   cbSuccess,
   cbFailed,
 });

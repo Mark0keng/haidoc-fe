@@ -1,0 +1,12 @@
+@import '@styles/base.scss';
+
+.menu {
+  @include directionX;
+  gap: 12px;
+}
+
+.logout {
+  @include directionX;
+  gap: 12px;
+  color: #ba2d0e;
+}

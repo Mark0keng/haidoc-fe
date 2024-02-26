@@ -89,7 +89,7 @@ const Cart = ({ cart, address }) => {
             })
           );
         }
-        navigate('checkout/order');
+        navigate(`/checkout/order/${orderData?.orderId}`);
       })
     );
   };

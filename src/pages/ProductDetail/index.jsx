@@ -12,10 +12,12 @@ import { selectCart } from '@pages/Cart/selector';
 import { deleteCart, getUserCart, updateCart } from '@pages/Cart/actions';
 
 import classes from './style.module.scss';
+import { Snackbar } from '@mui/material';
 
 const ProductDetail = ({ product, cart }) => {
   const { id } = useParams();
   const [productInCart, setProductInCart] = useState('');
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -37,6 +39,10 @@ const ProductDetail = ({ product, cart }) => {
       )
     );
   }, [dispatch, id]);
+
+  const handleSnackbar = () => {
+    setOpenSnackbar(!openSnackbar);
+  };
 
   const handleAddToCart = () => {
     const payload = {
@@ -72,14 +78,23 @@ const ProductDetail = ({ product, cart }) => {
       );
     } else {
       dispatch(
-        updateCart(payload, cartId, () => {
-          dispatch(
-            getUserCart({}, (dataCart) => {
-              const inCart = dataCart?.filter((item) => item?.productId === product?.id);
-              setProductInCart(inCart[0]);
-            })
-          );
-        })
+        updateCart(
+          payload,
+          cartId,
+          () => {
+            dispatch(
+              getUserCart({}, (dataCart) => {
+                const inCart = dataCart?.filter((item) => item?.productId === product?.id);
+                setProductInCart(inCart[0]);
+              })
+            );
+          },
+          (err) => {
+            if (err.statusCode === 401) {
+              handleSnackbar();
+            }
+          }
+        )
       );
     }
   };

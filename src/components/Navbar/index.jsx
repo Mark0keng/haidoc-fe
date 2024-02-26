@@ -1,21 +1,23 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import ShoppingCartCheckoutOutlined from '@mui/icons-material/ShoppingCartCheckoutOutlined';
+import { createStructuredSelector } from 'reselect';
 
 import { setLocale, setTheme } from '@containers/App/actions';
 
 import classes from './style.module.scss';
+import AvatarMenu from './components/AvatarMenu';
+import { selectLogin } from '@containers/Client/selectors';
 
-const Navbar = ({ title, locale, theme }) => {
+const Navbar = ({ login, title, locale, theme }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [menuPosition, setMenuPosition] = useState(null);
@@ -52,17 +54,21 @@ const Navbar = ({ title, locale, theme }) => {
           <div className={classes.title}>{title}</div>
         </div>
         <div className={classes.toolbar}>
-          <div className={classes.cart} onClick={() => navigate('/checkout/cart')}>
-            <ShoppingCartCheckoutOutlined />
-          </div>
+          {login && <AvatarMenu />}
+          {login && (
+            <div className={classes.cart} onClick={() => navigate('/checkout/cart')}>
+              <ShoppingCartCheckoutOutlined />
+            </div>
+          )}
           <div className={classes.theme} onClick={handleTheme} data-testid="toggleTheme">
             {theme === 'light' ? <NightsStayIcon /> : <LightModeIcon />}
           </div>
-          <div className={classes.toggle} onClick={handleClick}>
+
+          {/* <div className={classes.toggle} onClick={handleClick}>
             <Avatar className={classes.avatar} src={locale === 'id' ? '/id.png' : '/en.png'} />
             <div className={classes.lang}>{locale}</div>
             <ExpandMoreIcon />
-          </div>
+          </div> */}
         </div>
         <Menu open={open} anchorEl={menuPosition} onClose={handleClose}>
           <MenuItem onClick={() => onSelectLang('id')} selected={locale === 'id'}>
@@ -91,6 +97,11 @@ Navbar.propTypes = {
   title: PropTypes.string,
   locale: PropTypes.string.isRequired,
   theme: PropTypes.string,
+  login: PropTypes.bool,
 };
 
-export default Navbar;
+const mapStateToProps = createStructuredSelector({
+  login: selectLogin,
+});
+
+export default connect(mapStateToProps)(Navbar);

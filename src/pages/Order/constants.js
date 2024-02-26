@@ -1,5 +1,7 @@
-export const GET_ORDER = 'GET_ORDER';
+export const GET_USER_ORDER = 'GET_USER_ORDER';
 export const CREATE_ORDER = 'CREATE_ORDER';
 
 export const GET_ORDER_ITEM = 'GET_ORDER_ITEM';
 export const CREATE_ORDER_ITEM = 'CREATE_ORDER_ITEM';
+
+export const GET_PAYMENT = 'GET_PAYMENT';

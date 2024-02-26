@@ -22,8 +22,11 @@ const urls = {
   createCart: 'cart/create',
   updateCart: 'cart/update',
   deleteCart: 'cart/delete',
+  getUserOrder: 'order/user',
   createOrder: 'order/create',
+  getOrderItem: 'order-item',
   createOrderItem: 'order-item/create',
+  getPayment: 'payment',
 };
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
@@ -71,6 +74,10 @@ export const getAddress = (query) => callAPI(urls.getAddress, 'get', {}, query);
 export const createAddress = (payload) => callAPI(urls.createAddress, 'post', {}, {}, payload);
 export const updateAddress = (payload) => callAPI(urls.updateAddress, 'put', {}, {}, payload);
 
+export const getUserOrder = (query) => callAPI(urls.getUserOrder, 'get', {}, query);
 export const createOrder = (payload) => callAPI(urls.createOrder, 'post', {}, {}, payload);
 
+export const getOrderItem = (query) => callAPI(urls.getOrderItem, 'get', {}, query);
 export const createOrderItem = (payload) => callAPI(urls.createOrderItem, 'post', {}, {}, payload);
+
+export const getPayment = (query) => callAPI(urls.getPayment, 'get', {}, query);

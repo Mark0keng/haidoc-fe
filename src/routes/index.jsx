@@ -8,6 +8,7 @@ import Home from '@pages/Home';
 import Login from '@pages/Login';
 import NotFound from '@pages/NotFound';
 import Order from '@pages/Order';
+import OrderList from '@pages/OrderList';
 import ProductDashboard from '@pages/ProductDashboard';
 import ProductDetail from '@pages/ProductDetail';
 import Register from '@pages/Register';
@@ -48,6 +49,12 @@ const routes = [
     component: Register,
   },
   {
+    path: '/order',
+    name: 'Order',
+    protected: true,
+    component: OrderList,
+  },
+  {
     path: '/checkout/address',
     name: 'Address',
     protected: true,
@@ -62,7 +69,7 @@ const routes = [
     layout: MainLayout,
   },
   {
-    path: '/checkout/order',
+    path: '/checkout/order/:orderId',
     name: 'Order',
     protected: true,
     component: Order,
