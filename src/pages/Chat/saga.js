@@ -1,7 +1,7 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { setLoading } from '@containers/App/actions';
-import { createChat, getChat } from '@domain/api';
-import { CREATE_CHAT, GET_CHAT } from './constants';
+import { createChat, createMessage, getChat, getMessage } from '@domain/api';
+import { CREATE_CHAT, CREATE_MESSAGE, GET_CHAT, GET_MESSAGE } from './constants';
 
 function* doGetChat({ query, cbSuccess, cbFailed }) {
   yield put(setLoading(true));
@@ -31,7 +31,37 @@ function* doCreateChat({ payload, cbSuccess, cbFailed }) {
   yield put(setLoading(false));
 }
 
+function* doGetMessage({ query, cbSuccess, cbFailed }) {
+  yield put(setLoading(true));
+  try {
+    const message = yield call(getMessage, query);
+
+    cbSuccess && cbSuccess(message?.data);
+  } catch (error) {
+    if (error?.response?.data?.output?.payload) {
+      cbFailed && cbFailed(error.response.data.output.payload);
+    }
+  }
+  yield put(setLoading(false));
+}
+
+function* doCreateMessage({ payload, cbSuccess, cbFailed }) {
+  yield put(setLoading(true));
+  try {
+    const message = yield call(createMessage, payload);
+
+    cbSuccess && cbSuccess(message?.data);
+  } catch (error) {
+    if (error?.response?.data?.output?.payload) {
+      cbFailed && cbFailed(error.response.data.output.payload);
+    }
+  }
+  yield put(setLoading(false));
+}
+
 export default function* chatSaga() {
-  yield takeLatest(CREATE_CHAT, doCreateChat);
   yield takeLatest(GET_CHAT, doGetChat);
+  yield takeLatest(CREATE_CHAT, doCreateChat);
+  yield takeLatest(GET_MESSAGE, doGetMessage);
+  yield takeLatest(CREATE_MESSAGE, doCreateMessage);
 }

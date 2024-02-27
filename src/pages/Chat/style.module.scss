@@ -11,6 +11,55 @@
     z-index: 1;
   }
 
+  .content {
+    padding-top: 72px;
+    padding-bottom: 72px;
+    padding-left: 18px;
+    padding-right: 18px;
+
+    .yourMessage {
+      @include directionX;
+      margin-bottom: 8px;
+      justify-content: end;
+
+      .bubbleChat {
+        padding: 8px 12px;
+        background-color: $color-sky-blue;
+        border-radius: 10px;
+        width: fit-content;
+        color: #fff;
+        .text {
+          font-size: 14px;
+        }
+        .time {
+          font-size: 12px;
+          text-align: end;
+        }
+      }
+    }
+
+    .otherMessage {
+      @include directionX;
+      margin-bottom: 8px;
+      justify-content: start;
+
+      .bubbleChat {
+        padding: 8px 12px;
+        background-color: $color-white;
+        border-radius: 10px;
+        width: fit-content;
+        color: $color-black;
+        .text {
+          font-size: 14px;
+        }
+        .time {
+          font-size: 12px;
+          text-align: end;
+        }
+      }
+    }
+  }
+
   .texter {
     @include directionX;
     align-items: center;

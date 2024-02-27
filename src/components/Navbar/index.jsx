@@ -60,6 +60,11 @@ const Navbar = ({ login, title, locale, theme }) => {
               <ShoppingCartCheckoutOutlined />
             </div>
           )}
+          {!login && (
+            <div className={classes.login} onClick={() => navigate('/login')}>
+              Login
+            </div>
+          )}
           <div className={classes.theme} onClick={handleTheme} data-testid="toggleTheme">
             {theme === 'light' ? <NightsStayIcon /> : <LightModeIcon />}
           </div>

@@ -8,46 +8,68 @@ import { createStructuredSelector } from 'reselect';
 import { Avatar, AvatarGroup } from '@mui/material';
 
 import { selectToken } from '@containers/Client/selectors';
+import { createMessage, getChat, getMessage } from './actions';
+import { getTime } from '@utils/formatTime';
 
 import classes from './style.module.scss';
-import { getChat } from './actions';
-
-const socket = io.connect('http://localhost:5000');
 
 const Chat = ({ token }) => {
+  const socket = io.connect('http://localhost:5000');
+
   const { roomId } = useParams();
   const [me, setMe] = useState('');
   const [message, setMessage] = useState('');
-  const [currentMessages, setCurrentMessages] = useState('');
+  const [messageList, setMessageList] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(
-      getChat({ roomId }, (chatData) => {
-        if (chatData.length > 0) {
-          if (me?.id !== chatData?.doctorId || me?.id !== chatData?.clientId) {
-            navigate('/not-authorized');
+    setMe(jwtDecode(token));
+  }, []);
+
+  useEffect(() => {
+    me &&
+      dispatch(
+        getChat({ roomId }, (chatData) => {
+          if (chatData.length > 0) {
+            if (me?.id === chatData[0]?.doctorId || me?.id === chatData[0]?.clientId) {
+              socket.emit('join_room', roomId);
+
+              dispatch(
+                getMessage({ roomId }, (messageData) => {
+                  setMessageList(messageData);
+                })
+              );
+            } else {
+              navigate('/not-authorized');
+            }
+          } else {
+            navigate('/not-found');
           }
+        })
+      );
+  }, [dispatch, me]);
 
-          setMe(jwtDecode(token));
-          socket.emit('join_room', roomId);
-        } else {
-          navigate('/not-found');
-        }
-      })
-    );
-  }, [dispatch, roomId]);
+  useEffect(() => {
+    socket.on('receive_message', (data) => {
+      setMessageList((list) => [...list, data]);
+    });
+  }, [socket]);
 
-  const sendMessage = async () => {
+  const sendMessage = () => {
     const payload = {
       roomId,
       senderId: me?.id,
       message,
-      time: new Date(Date.now()).getHours() + ' : ' + new Date(Date.now()).getMinutes(),
+      time: new Date(Date.now()),
     };
 
-    await socket.emit('send_message', payload);
+    dispatch(
+      createMessage(payload, () => {
+        socket.emit('send_message', payload);
+        setMessage('');
+      })
+    );
   };
 
   return (
@@ -58,11 +80,22 @@ const Chat = ({ token }) => {
           <Avatar />
         </AvatarGroup>
       </div>
-      <div className={classes.content}></div>
+      <div className={classes.content}>
+        {messageList?.map((messageData, index) => (
+          <div className={me?.id === messageData?.senderId ? classes.yourMessage : classes.otherMessage} key={index}>
+            <div className={classes.bubbleChat}>
+              <div className={classes.text}>{messageData?.message}</div>
+              <div className={classes.time}>{getTime(messageData?.time)}</div>
+            </div>
+          </div>
+        ))}
+      </div>
 
       <div className={classes.texter}>
-        <input type="text" className={classes.input} />
-        <div className={classes.send}>Kirim</div>
+        <input type="text" className={classes.input} value={message} onChange={(e) => setMessage(e.target.value)} />
+        <div className={classes.send} onClick={sendMessage}>
+          Kirim
+        </div>
       </div>
     </div>
   );

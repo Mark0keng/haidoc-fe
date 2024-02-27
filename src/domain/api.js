@@ -31,6 +31,8 @@ const urls = {
   getDoctor: 'doctor',
   getChat: 'chat',
   createChat: 'chat/create',
+  getMessage: 'message',
+  createMessage: 'message/create',
 };
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
@@ -91,3 +93,6 @@ export const getDoctor = (query) => callAPI(urls.getDoctor, 'get', {}, query);
 
 export const getChat = (query) => callAPI(urls.getChat, 'get', {}, query);
 export const createChat = (payload) => callAPI(urls.createChat, 'post', {}, {}, payload);
+
+export const getMessage = (query) => callAPI(urls.getMessage, 'get', {}, query);
+export const createMessage = (payload) => callAPI(urls.createMessage, 'post', {}, {}, payload);
