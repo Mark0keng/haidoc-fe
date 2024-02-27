@@ -8,6 +8,8 @@ import productDetailSaga from '@pages/ProductDetail/saga';
 import cartSaga from '@pages/Cart/saga';
 import addressSaga from '@pages/Address/saga';
 import orderSaga from '@pages/Order/saga';
+import doctorSaga from '@pages/Doctor/saga';
+import chatSaga from '@pages/Chat/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -19,5 +21,7 @@ export default function* rootSaga() {
     addressSaga(),
     cartSaga(),
     orderSaga(),
+    doctorSaga(),
+    chatSaga(),
   ]);
 }

@@ -2,7 +2,9 @@ import AppLayout from '@layouts/AppLayout';
 import MainLayout from '@layouts/MainLayout';
 import Address from '@pages/Address';
 import Cart from '@pages/Cart';
+import Chat from '@pages/Chat';
 import Dashboard from '@pages/Dashboard/Index';
+import Doctor from '@pages/Doctor';
 
 import Home from '@pages/Home';
 import Login from '@pages/Login';
@@ -49,6 +51,13 @@ const routes = [
     component: Register,
   },
   {
+    path: '/doctor',
+    name: 'Doctor',
+    protected: false,
+    component: Doctor,
+    layout: MainLayout,
+  },
+  {
     path: '/order',
     name: 'Order',
     protected: true,
@@ -89,6 +98,13 @@ const routes = [
     protected: true,
     component: ProductDashboard,
     layout: AppLayout,
+  },
+  {
+    path: '/chat/:roomId',
+    name: 'Chat',
+    protected: true,
+    component: Chat,
+    // layout: AppLayout,
   },
   { path: '*', name: 'Not Found', component: NotFound, layout: MainLayout, protected: false },
 ];

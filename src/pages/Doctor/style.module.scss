@@ -1,0 +1,75 @@
+@import '@styles/base.scss';
+
+.layout {
+  overflow: hidden;
+
+  .title {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 2;
+    padding: 0px 2%;
+  }
+
+  .search {
+    padding: 24px 2%;
+  }
+
+  .doctorSection {
+    padding: 0px 2%;
+    box-sizing: border-box;
+
+    .listDoctor {
+      .card {
+        @include directionX;
+        gap: 8px;
+        background-color: var(--color-bg);
+        border-radius: 10px;
+        padding: 12px;
+        box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.5);
+        -webkit-box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.5);
+        -moz-box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.5);
+
+        .imageSection {
+          .image {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+          }
+        }
+
+        .infoSection {
+          @include directionY;
+          gap: 8px;
+          .name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text);
+          }
+          .specialist {
+            font-size: 14px;
+            font-weight: 400;
+            color: $color-grey;
+          }
+          .experience {
+            @include directionX;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 400;
+            background-color: $color-grey;
+            color: $color-white;
+            padding: 2px 8px;
+            width: fit-content;
+            border-radius: 25px;
+          }
+          .chat {
+            @include button;
+            width: fit-content;
+            padding: 4px 12px;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}

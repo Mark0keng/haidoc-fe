@@ -28,6 +28,9 @@ const urls = {
   getOrderItem: 'order-item',
   createOrderItem: 'order-item/create',
   getPayment: 'payment',
+  getDoctor: 'doctor',
+  getChat: 'chat',
+  createChat: 'chat/create',
 };
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
@@ -83,3 +86,8 @@ export const getOrderItem = (query) => callAPI(urls.getOrderItem, 'get', {}, que
 export const createOrderItem = (payload) => callAPI(urls.createOrderItem, 'post', {}, {}, payload);
 
 export const getPayment = (query) => callAPI(urls.getPayment, 'get', {}, query);
+
+export const getDoctor = (query) => callAPI(urls.getDoctor, 'get', {}, query);
+
+export const getChat = (query) => callAPI(urls.getChat, 'get', {}, query);
+export const createChat = (payload) => callAPI(urls.createChat, 'post', {}, {}, payload);
