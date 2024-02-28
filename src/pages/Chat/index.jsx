@@ -18,6 +18,7 @@ const Chat = ({ token }) => {
 
   const { roomId } = useParams();
   const [me, setMe] = useState('');
+  const [chat, setChat] = useState('');
   const [message, setMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
   const dispatch = useDispatch();
@@ -34,6 +35,8 @@ const Chat = ({ token }) => {
           if (chatData.length > 0) {
             if (me?.id === chatData[0]?.doctorId || me?.id === chatData[0]?.clientId) {
               socket.emit('join_room', roomId);
+
+              setChat(chatData[0]);
 
               dispatch(
                 getMessage({ roomId }, (messageData) => {
@@ -72,13 +75,22 @@ const Chat = ({ token }) => {
     );
   };
 
+  console.log(chat);
   return (
     <div className={classes.layout}>
       <div className={classes.header}>
-        <AvatarGroup max={2}>
-          <Avatar />
-          <Avatar />
-        </AvatarGroup>
+        {me?.id === chat?.doctor?.userId && (
+          <>
+            <Avatar>{chat?.client?.username[0].toUpperCase()}</Avatar>
+            <div>{chat?.client?.username}</div>
+          </>
+        )}
+        {me?.id === chat?.client?.id && (
+          <>
+            <Avatar src={chat?.doctor?.imageUrl}>{chat?.doctor?.fullName[0].toUpperCase()}</Avatar>
+            <div>{chat?.doctor?.fullName}</div>
+          </>
+        )}
       </div>
       <div className={classes.content}>
         {messageList?.map((messageData, index) => (

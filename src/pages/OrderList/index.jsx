@@ -21,6 +21,8 @@ const OrderList = () => {
   return (
     <div className={classes.layout}>
       <div className={classes.orderSection}>
+        <div className={classes.title}>Order Anda</div>
+
         {orders &&
           orders?.map((order, index) => (
             <div className={classes.card} key={index} onClick={() => navigate(`/checkout/order/${order?.orderId}`)}>

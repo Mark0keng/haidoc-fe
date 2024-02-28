@@ -1,1 +1,44 @@
 @import '@styles/base';
+
+.layout {
+  background-color: $color-midnight-blue;
+  .banner {
+    padding: 5%;
+    // background: url('/banner.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: $color-white;
+    }
+    .subtitle {
+      color: $color-white;
+    }
+
+    .service {
+      @include directionX;
+      gap: 18px;
+      padding-top: 24px;
+      .card {
+        @include directionY;
+        align-items: center;
+        padding: 12px;
+        width: 100px;
+        border-radius: 10px;
+        background-color: $color-white;
+        color: $color-dark-blue;
+        box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.61);
+        -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.61);
+        -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.61);
+        cursor: pointer;
+
+        .name {
+          font-size: 16px;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

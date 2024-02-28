@@ -32,6 +32,7 @@ const urls = {
   getChat: 'chat',
   createChat: 'chat/create',
   getMessage: 'message',
+  getLatestMessage: 'message/latest',
   createMessage: 'message/create',
 };
 
@@ -95,4 +96,5 @@ export const getChat = (query) => callAPI(urls.getChat, 'get', {}, query);
 export const createChat = (payload) => callAPI(urls.createChat, 'post', {}, {}, payload);
 
 export const getMessage = (query) => callAPI(urls.getMessage, 'get', {}, query);
+export const getLatestMessage = (query) => callAPI(urls.getLatestMessage, 'get', {}, query);
 export const createMessage = (payload) => callAPI(urls.createMessage, 'post', {}, {}, payload);

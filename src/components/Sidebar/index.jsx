@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import KeyboardDoubleArrowLeftRounded from '@mui/icons-material/KeyboardDoubleArrowLeftRounded';
-import { HomeOutlined, LogoutOutlined, MedicationOutlined } from '@mui/icons-material';
+import { ChatOutlined, HomeOutlined, LogoutOutlined, MedicationOutlined } from '@mui/icons-material';
 
 import { selectToken } from '@containers/Client/selectors';
 
@@ -54,17 +54,26 @@ const Sidebar = ({ token }) => {
           <HomeOutlined />
           <div className={classes.name}>Home</div>
         </div>
-        <div className={classes.item}>
-          <MedicationOutlined />
-          <div
-            className={classes.name}
-            onClick={() => {
-              navigate('/dashboard/product');
-            }}
-          >
-            Product
+        {user?.role === 2 && (
+          <div className={classes.item} onClick={() => navigate(`/chat-list/${user?.id}`)}>
+            <ChatOutlined />
+            <div className={classes.name}>Chat</div>
           </div>
-        </div>
+        )}
+        {user?.id === 3 && (
+          <div className={classes.item}>
+            <MedicationOutlined />
+            <div
+              className={classes.name}
+              onClick={() => {
+                navigate('/dashboard/product');
+              }}
+            >
+              Product
+            </div>
+          </div>
+        )}
+
         <div className={classes.item} onClick={logout}>
           <LogoutOutlined />
           <div className={classes.name}>Logout</div>

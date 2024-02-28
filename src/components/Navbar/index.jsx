@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -10,18 +10,27 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import ShoppingCartCheckoutOutlined from '@mui/icons-material/ShoppingCartCheckoutOutlined';
 import { createStructuredSelector } from 'reselect';
+import { Badge } from '@mui/material';
 
+import AvatarMenu from './components/AvatarMenu';
 import { setLocale, setTheme } from '@containers/App/actions';
 
-import classes from './style.module.scss';
-import AvatarMenu from './components/AvatarMenu';
 import { selectLogin } from '@containers/Client/selectors';
+import { selectCart } from '@pages/Cart/selector';
 
-const Navbar = ({ login, title, locale, theme }) => {
+import classes from './style.module.scss';
+
+const Navbar = ({ login, title, locale, theme, cart }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [menuPosition, setMenuPosition] = useState(null);
+  const [totalCart, setTotalCart] = useState('');
   const open = Boolean(menuPosition);
+
+  useEffect(() => {
+    const totalCount = cart?.reduce((result, item) => result + item?.count, 0);
+    setTotalCart(totalCount);
+  }, [cart]);
 
   const handleClick = (event) => {
     setMenuPosition(event.currentTarget);
@@ -50,14 +59,16 @@ const Navbar = ({ login, title, locale, theme }) => {
     <div className={classes.headerWrapper} data-testid="navbar">
       <div className={classes.contentWrapper}>
         <div className={classes.logoImage} onClick={goHome}>
-          <img src="/vite.svg" alt="logo" className={classes.logo} />
-          <div className={classes.title}>{title}</div>
+          <img src="/haidoc.svg" alt="logo" className={classes.logo} />
+          {/* <div className={classes.title}>{title}</div> */}
         </div>
         <div className={classes.toolbar}>
           {login && <AvatarMenu />}
           {login && (
             <div className={classes.cart} onClick={() => navigate('/checkout/cart')}>
-              <ShoppingCartCheckoutOutlined />
+              <Badge badgeContent={totalCart} color="primary">
+                <ShoppingCartCheckoutOutlined />
+              </Badge>
             </div>
           )}
           {!login && (
@@ -103,10 +114,12 @@ Navbar.propTypes = {
   locale: PropTypes.string.isRequired,
   theme: PropTypes.string,
   login: PropTypes.bool,
+  cart: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   login: selectLogin,
+  cart: selectCart,
 });
 
 export default connect(mapStateToProps)(Navbar);

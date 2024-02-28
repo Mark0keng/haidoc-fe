@@ -8,7 +8,14 @@ const ClientRoutes = () => {
     const routeList = [];
 
     const renderElement = (route) => {
-      const { layout: Layout, component: Component, protected: Protected } = route;
+      const {
+        layout: Layout,
+        component: Component,
+        protected: Protected,
+        isAdmin: IsAdmin,
+        isDoctor: isDoctor,
+        isPublic: isPublic,
+      } = route;
       let element = <Component />;
 
       if (typeof Layout !== 'undefined') {
@@ -19,7 +26,16 @@ const ClientRoutes = () => {
         );
       }
 
-      return Protected ? <Client>{element}</Client> : element;
+      if (Protected) {
+        if (IsAdmin) {
+          return <Client role={3}>{element}</Client>;
+        } else if (isDoctor) {
+          return <Client role={2}>{element}</Client>;
+        } else if (isPublic) {
+          return <Client role={1}>{element}</Client>;
+        }
+      }
+      return <Client>{element}</Client>;
     };
 
     routes.forEach((route) => {

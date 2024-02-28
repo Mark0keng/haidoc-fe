@@ -2,7 +2,6 @@
 
 .layout {
   @include directionX;
-  // width: 100vw;
   justify-content: center;
   align-items: center;
   padding-top: 3%;
@@ -13,6 +12,12 @@
     align-items: center;
     gap: 12px;
     box-sizing: border-box;
+
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      text-align: start;
+    }
 
     .card {
       width: 100%;

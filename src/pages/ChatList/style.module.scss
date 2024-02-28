@@ -1,0 +1,81 @@
+@import '@styles/base.scss';
+
+.layout {
+  background-color: var(--color-bg);
+  height: 100vh;
+  @include apply-at-md-size {
+    width: 50%;
+    margin: auto;
+  }
+
+  @include apply-at-lg-size {
+    width: 40%;
+    margin: auto;
+  }
+  @include apply-at-xl-size {
+    width: 30%;
+    margin: auto;
+  }
+
+  .header {
+    position: fixed;
+    top: 0;
+    background-color: $color-sky-blue;
+    width: 100%;
+    padding: 12px 18px;
+    box-sizing: border-box;
+    z-index: 1;
+    @include apply-at-md-size {
+      width: 50%;
+      margin: auto;
+    }
+    @include apply-at-lg-size {
+      width: 40%;
+      margin: auto;
+    }
+    @include apply-at-xl-size {
+      width: 30%;
+      margin: auto;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 500;
+      color: $color-white;
+    }
+  }
+
+  .chatList {
+    padding-top: 50px;
+    .chat {
+      @include directionX;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 12px;
+      background-color: var(--color-bg);
+      border-bottom: 1px solid $color-light-grey;
+      cursor: pointer;
+
+      .info {
+        width: 100%;
+        .nameTime {
+          @include directionX;
+          justify-content: space-between;
+          .name {
+            font-size: 14px;
+            font-weight: 500;
+          }
+
+          .time {
+            font-size: 12px;
+            font-weight: 500;
+          }
+        }
+
+        .lastMessage {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}

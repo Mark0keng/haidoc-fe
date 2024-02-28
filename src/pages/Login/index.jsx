@@ -23,10 +23,15 @@ const Login = () => {
     dispatch(
       login(
         payload,
-        () => {
+        (loginData) => {
           dispatch(setAddress(null));
           dispatch(setCart(null));
-          navigate('/dashboard');
+
+          if (loginData?.role === 1) {
+            navigate('/');
+          } else {
+            navigate('/dashboard');
+          }
         },
         (err) => {
           setError(err.message);

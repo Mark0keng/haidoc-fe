@@ -3,6 +3,7 @@ import { setLoading } from '@containers/App/actions';
 import { login } from '@domain/api';
 import { LOGIN } from './constants';
 import { setLogin, setToken } from '@containers/Client/actions';
+import { jwtDecode } from 'jwt-decode';
 
 function* doLogin({ payload, cbSuccess, cbFailed }) {
   yield put(setLoading(true));
@@ -10,7 +11,7 @@ function* doLogin({ payload, cbSuccess, cbFailed }) {
     const { token } = yield call(login, payload);
     yield put(setLogin(true));
     yield put(setToken(token));
-    cbSuccess && cbSuccess();
+    cbSuccess && cbSuccess(jwtDecode(token));
   } catch (error) {
     if (error?.response?.data?.output?.payload) {
       cbFailed && cbFailed(error.response.data.output.payload);

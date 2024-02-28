@@ -31,12 +31,7 @@ const AvatarMenu = () => {
 
   return (
     <>
-      <Avatar
-        alt="Remy Sharp"
-        src="/static/images/avatar/1.jpg"
-        style={{ width: 32, height: 32, cursor: 'pointer' }}
-        onClick={handleClick}
-      />
+      <Avatar style={{ width: 32, height: 32, cursor: 'pointer' }} onClick={handleClick} />
       <Menu open={open} anchorEl={menuPosition} onClose={handleClose}>
         <MenuItem style={{ cursor: 'pointer', fontSize: 14 }}>
           <div className={classes.menu} onClick={() => navigate('/order')}>
@@ -44,9 +39,9 @@ const AvatarMenu = () => {
             <div>Order</div>
           </div>
         </MenuItem>
-        <MenuItem style={{ cursor: 'pointer' }}>
+        <MenuItem style={{ cursor: 'pointer', fontSize: 14 }}>
           <div className={classes.logout} onClick={handleLogout}>
-            <LogoutRounded />
+            <LogoutRounded style={{ fontSize: 20 }} />
             <div>Logout</div>
           </div>
         </MenuItem>

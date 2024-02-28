@@ -1,14 +1,49 @@
 @import '@styles/base.scss';
 
 .layout {
+  background-color: var(--color-bg);
+  height: 100vh;
+
+  @include apply-at-md-size {
+    width: 50%;
+    margin: auto;
+  }
+
+  @include apply-at-lg-size {
+    width: 40%;
+    margin: auto;
+  }
+  @include apply-at-xl-size {
+    width: 30%;
+    margin: auto;
+  }
+
   .header {
+    @include directionX;
+    gap: 12px;
+    align-items: center;
     position: fixed;
     top: 0;
     background-color: $color-midnight-blue;
+    color: $color-white;
     width: 100%;
     padding: 12px 18px;
     box-sizing: border-box;
     z-index: 1;
+    text-align: start;
+
+    @include apply-at-md-size {
+      width: 50%;
+      margin: auto;
+    }
+    @include apply-at-lg-size {
+      width: 40%;
+      margin: auto;
+    }
+    @include apply-at-xl-size {
+      width: 30%;
+      margin: auto;
+    }
   }
 
   .content {
@@ -26,7 +61,9 @@
         padding: 8px 12px;
         background-color: $color-sky-blue;
         border-radius: 10px;
+        border-top-right-radius: 0px;
         width: fit-content;
+        max-width: 60%;
         color: #fff;
         .text {
           font-size: 14px;
@@ -45,9 +82,11 @@
 
       .bubbleChat {
         padding: 8px 12px;
-        background-color: $color-white;
+        background-color: $color-light-grey;
         border-radius: 10px;
+        border-top-left-radius: 0px;
         width: fit-content;
+        max-width: 60%;
         color: $color-black;
         .text {
           font-size: 14px;
@@ -70,6 +109,20 @@
     padding: 12px 18px;
     box-sizing: border-box;
     z-index: 1;
+
+    @include apply-at-md-size {
+      width: 50%;
+      margin: auto;
+    }
+
+    @include apply-at-lg-size {
+      width: 40%;
+      margin: auto;
+    }
+    @include apply-at-xl-size {
+      width: 30%;
+      margin: auto;
+    }
 
     .input {
       width: 100%;

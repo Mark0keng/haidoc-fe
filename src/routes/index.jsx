@@ -3,6 +3,7 @@ import MainLayout from '@layouts/MainLayout';
 import Address from '@pages/Address';
 import Cart from '@pages/Cart';
 import Chat from '@pages/Chat';
+import ChatList from '@pages/ChatList';
 import Dashboard from '@pages/Dashboard/Index';
 import Doctor from '@pages/Doctor';
 
@@ -89,6 +90,8 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     protected: true,
+    isAdmin: true,
+    isDoctor: true,
     component: Dashboard,
     layout: AppLayout,
   },
@@ -96,15 +99,22 @@ const routes = [
     path: '/dashboard/product',
     name: 'Product Dashboard',
     protected: true,
+    isAdmin: true,
     component: ProductDashboard,
     layout: AppLayout,
+  },
+  {
+    path: '/chat-list/:id',
+    name: 'ChatList',
+    protected: true,
+    isDoctor: true,
+    component: ChatList,
   },
   {
     path: '/chat/:roomId',
     name: 'Chat',
     protected: true,
     component: Chat,
-    // layout: AppLayout,
   },
   { path: '*', name: 'Not Found', component: NotFound, layout: MainLayout, protected: false },
 ];
