@@ -15,17 +15,23 @@ import { Badge } from '@mui/material';
 import AvatarMenu from './components/AvatarMenu';
 import { setLocale, setTheme } from '@containers/App/actions';
 
-import { selectLogin } from '@containers/Client/selectors';
+import { selectLogin, selectToken } from '@containers/Client/selectors';
 import { selectCart } from '@pages/Cart/selector';
 
 import classes from './style.module.scss';
+import { jwtDecode } from 'jwt-decode';
 
-const Navbar = ({ login, title, locale, theme, cart }) => {
+const Navbar = ({ login, token, locale, theme, cart }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [me, setMe] = useState('');
   const [menuPosition, setMenuPosition] = useState(null);
   const [totalCart, setTotalCart] = useState('');
   const open = Boolean(menuPosition);
+
+  useEffect(() => {
+    setMe(jwtDecode(token));
+  }, []);
 
   useEffect(() => {
     const totalCount = cart?.reduce((result, item) => result + item?.count, 0);
@@ -63,7 +69,7 @@ const Navbar = ({ login, title, locale, theme, cart }) => {
           {/* <div className={classes.title}>{title}</div> */}
         </div>
         <div className={classes.toolbar}>
-          {login && <AvatarMenu />}
+          {login && <AvatarMenu me={me} />}
           {login && (
             <div className={classes.cart} onClick={() => navigate('/checkout/cart')}>
               <Badge badgeContent={totalCart} color="primary">
@@ -115,11 +121,13 @@ Navbar.propTypes = {
   theme: PropTypes.string,
   login: PropTypes.bool,
   cart: PropTypes.array,
+  token: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
   login: selectLogin,
   cart: selectCart,
+  token: selectToken,
 });
 
 export default connect(mapStateToProps)(Navbar);

@@ -75,7 +75,6 @@ const Chat = ({ token }) => {
     );
   };
 
-  console.log(chat);
   return (
     <div className={classes.layout}>
       <div className={classes.header}>

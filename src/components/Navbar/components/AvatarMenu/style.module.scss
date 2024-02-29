@@ -2,6 +2,7 @@
 
 .menu {
   @include directionX;
+  align-items: center;
   gap: 12px;
 }
 

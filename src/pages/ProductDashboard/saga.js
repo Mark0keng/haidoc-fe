@@ -9,7 +9,7 @@ function* doGetAllProduct({ query, cbSuccess, cbFailed }) {
   try {
     const products = yield call(getProduct, query);
     yield put(setAllProduct(products.data));
-    cbSuccess && cbSuccess(products);
+    cbSuccess && cbSuccess(products.data);
   } catch (error) {
     if (error?.response?.data?.output?.payload) {
       cbFailed && cbFailed(error.response.data.output.payload);

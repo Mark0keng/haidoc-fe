@@ -35,7 +35,7 @@ function* dogetAddress({ query, cbSuccess, cbFailed }) {
   try {
     const address = yield call(getAddress, query);
     yield put(setAddress(address?.data));
-    cbSuccess && cbSuccess();
+    cbSuccess && cbSuccess(address?.data);
   } catch (error) {
     if (error?.response?.data?.output?.payload) {
       cbFailed && cbFailed(error.response.data.output.payload);

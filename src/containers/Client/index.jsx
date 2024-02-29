@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { jwtDecode } from 'jwt-decode';
 
 import { selectLogin, selectToken } from '@containers/Client/selectors';
-import { jwtDecode } from 'jwt-decode';
 
 const Client = ({ role, login, children, token }) => {
   const [user, setUser] = useState('');
@@ -14,13 +14,16 @@ const Client = ({ role, login, children, token }) => {
   useEffect(() => {
     if (login && !login) {
       navigate('/login');
+      // if (token && Date.now() >= user?.exp * 1000) {
+      //   navigate('/login');
+      // }
     }
 
     token && setUser(jwtDecode(token));
 
-    if (role && user.role !== role) {
-      navigate('/unauthorized');
-    }
+    // if (role && user.role !== role) {
+    //   navigate('/unauthorized');
+    // }
   }, [role, token, login, navigate]);
 
   return children;

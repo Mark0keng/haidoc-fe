@@ -6,10 +6,10 @@ import { Avatar, Divider, Menu, MenuItem, MenuList, Paper } from '@mui/material'
 import { setLogin, setToken } from '@containers/Client/actions';
 
 import classes from './style.module.scss';
-import { LogoutRounded, ReceiptLongOutlined } from '@mui/icons-material';
+import { LogoutRounded, Person, ReceiptLongOutlined } from '@mui/icons-material';
 import { setAddress } from '@pages/Address/actions';
 
-const AvatarMenu = () => {
+const AvatarMenu = ({ me }) => {
   const [menuPosition, setMenuPosition] = useState(null);
   const open = Boolean(menuPosition);
   const dispatch = useDispatch();
@@ -33,6 +33,11 @@ const AvatarMenu = () => {
     <>
       <Avatar style={{ width: 32, height: 32, cursor: 'pointer' }} onClick={handleClick} />
       <Menu open={open} anchorEl={menuPosition} onClose={handleClose}>
+        <MenuItem style={{ cursor: 'pointer', fontSize: 14 }}>
+          <div className={classes.menu}>
+            <Person style={{ fontSize: 20 }} /> {me?.username}
+          </div>
+        </MenuItem>
         <MenuItem style={{ cursor: 'pointer', fontSize: 14 }}>
           <div className={classes.menu} onClick={() => navigate('/order')}>
             <ReceiptLongOutlined style={{ fontSize: 20 }} />

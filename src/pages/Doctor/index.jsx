@@ -19,6 +19,7 @@ const socket = io.connect('http://localhost:5000');
 const Doctor = ({ token }) => {
   const [me, setMe] = useState('');
   const [doctors, setDoctors] = useState('');
+  const [search, setSearch] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -56,25 +57,40 @@ const Doctor = ({ token }) => {
     );
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    dispatch(
+      getDoctor({ fullName: search }, (doctorData) => {
+        setDoctors(doctorData);
+      })
+    );
+  };
+
   return (
     <div className={classes.layout}>
       <div className={classes.title}>Cari Dokter</div>
 
       <div className={classes.search}>
-        <OutlinedInput
-          id="outlined-adornment-weight"
-          endAdornment={
-            <InputAdornment position="end">
-              <Search />
-            </InputAdornment>
-          }
-          aria-describedby="outlined-weight-helper-text"
-          inputProps={{
-            'aria-label': 'weight',
-          }}
-          size="small"
-          fullWidth
-        />
+        <form onSubmit={handleSearch}>
+          <OutlinedInput
+            id="outlined-adornment-weight"
+            endAdornment={
+              <InputAdornment position="end">
+                <Search />
+              </InputAdornment>
+            }
+            aria-describedby="outlined-weight-helper-text"
+            inputProps={{
+              'aria-label': 'weight',
+            }}
+            size="small"
+            fullWidth
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onClick={handleSearch}
+          />
+        </form>
       </div>
 
       <div className={classes.doctorSection}>
@@ -96,9 +112,11 @@ const Doctor = ({ token }) => {
                         <div className={classes.text}>{doctor?.experience}</div>
                       </div>
 
-                      <div className={classes.chat} onClick={() => enterChat(doctor?.user?.id)}>
-                        Chat
-                      </div>
+                      {me?.role === 1 && (
+                        <div className={classes.chat} onClick={() => enterChat(doctor?.user?.id)}>
+                          Chat
+                        </div>
+                      )}
                     </div>
                   </div>
                 </Grid>

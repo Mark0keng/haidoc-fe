@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import classes from './style.module.scss';
 import { getUserOrder } from '@pages/Order/actions';
 import { useNavigate } from 'react-router-dom';
+import { getDiffTime } from '@utils/formatTime';
 
 const OrderList = () => {
   const [orders, setOrders] = useState('');
@@ -29,11 +30,11 @@ const OrderList = () => {
               <div className={classes.orderId}>{order?.orderId}</div>
               <div className={classes.info}>
                 {order?.status === 'pending' && <div className={classes.statusPending}>{order?.status}</div>}
-                {order?.status === 'success' && <div className={classes.statusPending}>{order?.status}</div>}
-                {order?.status === 'failed' && <div className={classes.statusPending}>{order?.status}</div>}
+                {order?.status === 'success' && <div className={classes.statusSuccess}>{order?.status}</div>}
+                {order?.status === 'failed' && <div className={classes.statusFailed}>{order?.status}</div>}
                 <div className={classes.amount}>Rp {order?.grossAmount}</div>
               </div>
-              <div className={classes.createdAt}>Dibuat pada : {order?.createdAt}</div>
+              <div className={classes.createdAt}>Dibuat pada : {getDiffTime(order?.createdAt)}</div>
             </div>
           ))}
       </div>

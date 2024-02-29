@@ -25,13 +25,13 @@ const Cart = ({ cart, address }) => {
     dispatch(
       getAddress(
         {},
-        () => {
+        (addressData) => {
           dispatch(getUserCart({}));
           dispatch(
             getShippingCost(
               {
                 origin: 153,
-                destination: address?.cityId,
+                destination: addressData?.cityId,
                 weight: 1000,
                 courier: 'jne',
               },

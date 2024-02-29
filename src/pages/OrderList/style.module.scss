@@ -44,6 +44,22 @@
           color: white;
         }
 
+        .statusSuccess {
+          background-color: #79ac78;
+          padding: 2px 8px;
+          font-size: 13px;
+          border-radius: 25px;
+          color: white;
+        }
+
+        .statusFailed {
+          background-color: #d04848;
+          padding: 2px 8px;
+          font-size: 13px;
+          border-radius: 25px;
+          color: white;
+        }
+
         .amount {
           font-size: 14px;
           font-weight: 500;

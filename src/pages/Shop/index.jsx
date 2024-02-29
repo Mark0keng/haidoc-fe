@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { createStructuredSelector } from 'reselect';
 import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -10,13 +10,27 @@ import { getAllProduct } from '@pages/ProductDashboard/actions';
 
 import classes from './style.module.scss';
 
-const Shop = ({ products }) => {
+const Shop = () => {
+  const [search, setSearch] = useState('');
+  const [products, setProducts] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getAllProduct({}));
+    dispatch(
+      getAllProduct({}, (productData) => {
+        setProducts(productData);
+      })
+    );
   }, [dispatch]);
+
+  const handleSearch = () => {
+    dispatch(
+      getAllProduct({ name: search }, (productData) => {
+        setProducts(productData);
+      })
+    );
+  };
 
   return (
     <div>
@@ -26,8 +40,10 @@ const Shop = ({ products }) => {
           <div className={classes.subTitle}>Solusi sehat terpercaya</div>
 
           <div className={classes.search}>
-            <input type="text" className={classes.input} />
-            <div className={classes.button}>Search</div>
+            <input type="text" className={classes.input} value={search} onChange={(e) => setSearch(e.target.value)} />
+            <div className={classes.button} onClick={handleSearch}>
+              Search
+            </div>
           </div>
         </div>
       </div>
