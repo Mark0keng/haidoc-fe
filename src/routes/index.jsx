@@ -14,6 +14,7 @@ import Order from '@pages/Order';
 import OrderList from '@pages/OrderList';
 import ProductDashboard from '@pages/ProductDashboard';
 import ProductDetail from '@pages/ProductDetail';
+import Profile from '@pages/Profile';
 import Register from '@pages/Register';
 import Shop from '@pages/Shop';
 
@@ -44,6 +45,12 @@ const routes = [
     name: 'Login',
     protected: false,
     component: Login,
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    protected: true,
+    component: Profile,
   },
   {
     path: '/register',

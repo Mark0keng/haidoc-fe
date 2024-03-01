@@ -1,0 +1,25 @@
+@import '@styles/base.scss';
+
+.layout {
+  @include directionX;
+  justify-content: center;
+  align-items: center;
+  padding-top: 120px;
+
+  .card {
+    background-color: var(--color-text);
+    border-radius: 10px;
+    position: relative;
+    width: 320px;
+
+    .imageSection {
+      position: inherit;
+      top: -47px;
+      left: 36%;
+      background-color: var(--color-text);
+      width: fit-content;
+      padding: 4px;
+      border-radius: 50px;
+    }
+  }
+}
