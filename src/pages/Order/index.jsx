@@ -14,7 +14,7 @@ const Order = () => {
 
   const handlePayment = () => {
     dispatch(
-      getPayment({ orderId }, (token) => {
+      getPayment({ orderId, category: 'shop' }, (token) => {
         snap.pay(token, {
           onSuccess: function (result) {
             dispatch(

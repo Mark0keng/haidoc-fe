@@ -1,0 +1,115 @@
+@import '@styles/base.scss';
+
+.layout {
+  border: 1px solid $color-dim-grey;
+  border-radius: 5px;
+  margin: 8px;
+
+  .imageSection {
+    @include directionX;
+    justify-content: center;
+    overflow: hidden;
+    border-bottom: 1px solid $color-dim-grey;
+
+    .image {
+      object-fit: cover;
+      height: 210px;
+      transform: scale(1.25);
+    }
+  }
+
+  .infoSection {
+    padding: 18px 36px;
+    border-bottom: 1px solid $color-dim-grey;
+
+    .name {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .specialist {
+      font-size: 14px;
+      font-weight: 400;
+      color: $color-grey;
+      margin-bottom: 2px;
+    }
+    .experience {
+      @include directionX;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 400;
+      background-color: $color-grey;
+      color: $color-white;
+      padding: 2px 8px;
+      width: fit-content;
+      border-radius: 25px;
+    }
+  }
+
+  .priceSection {
+    padding: 18px 36px;
+    background-color: $color-grey-blue;
+    border-bottom: 1px solid $color-dim-grey;
+
+    .price {
+      color: $color-sky-blue;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .service {
+      font-size: 12px;
+      color: $color-grey;
+    }
+  }
+
+  .moreInfoSection {
+    padding: 18px 36px;
+    border-bottom: 1px solid $color-dim-grey;
+
+    .alumnus {
+      margin-bottom: 8px;
+      .header {
+        @include directionX;
+        gap: 8px;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .text {
+        font-size: 14px;
+        margin-left: 32px;
+        @include apply-at-md-size {
+          margin-left: 38px;
+        }
+      }
+    }
+
+    .str {
+      margin-bottom: 8px;
+      .header {
+        @include directionX;
+        gap: 8px;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .text {
+        font-size: 14px;
+        margin-left: 32px;
+        @include apply-at-md-size {
+          margin-left: 38px;
+        }
+      }
+    }
+  }
+
+  .order {
+    padding: 18px;
+    .button {
+      @include button;
+      margin: 0;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+}

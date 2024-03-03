@@ -5,10 +5,11 @@ import { io } from 'socket.io-client';
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
-import { Avatar, AvatarGroup } from '@mui/material';
+import { Avatar, Dialog } from '@mui/material';
+import { SpeakerNotesOffOutlined } from '@mui/icons-material';
 
 import { selectToken } from '@containers/Client/selectors';
-import { createMessage, getChat, getMessage } from './actions';
+import { createMessage, deleteChat, getChat, getMessage } from './actions';
 import { getTime } from '@utils/formatTime';
 
 import classes from './style.module.scss';
@@ -21,6 +22,7 @@ const Chat = ({ token }) => {
   const [chat, setChat] = useState('');
   const [message, setMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -75,20 +77,37 @@ const Chat = ({ token }) => {
     );
   };
 
+  const handleOpenDialog = () => {
+    setIsDialogOpen(!isDialogOpen);
+  };
+
+  const handleEndSession = () => {
+    dispatch(
+      deleteChat(chat?.id, () => {
+        navigate(`/chat-list/${me?.id}`);
+      })
+    );
+  };
+
   return (
     <div className={classes.layout}>
       <div className={classes.header}>
         {me?.id === chat?.doctor?.userId && (
-          <>
+          <div className={classes.user}>
             <Avatar>{chat?.client?.username[0].toUpperCase()}</Avatar>
             <div>{chat?.client?.username}</div>
-          </>
+          </div>
         )}
         {me?.id === chat?.client?.id && (
-          <>
+          <div className={classes.user}>
             <Avatar src={chat?.doctor?.imageUrl}>{chat?.doctor?.fullName[0].toUpperCase()}</Avatar>
             <div>{chat?.doctor?.fullName}</div>
-          </>
+          </div>
+        )}
+        {me?.role === 2 && (
+          <div className={classes.end} onClick={handleOpenDialog}>
+            <SpeakerNotesOffOutlined />
+          </div>
         )}
       </div>
       <div className={classes.content}>
@@ -108,6 +127,21 @@ const Chat = ({ token }) => {
           Kirim
         </div>
       </div>
+
+      <Dialog
+        open={isDialogOpen}
+        onClose={() => {
+          setIsDialogOpen(false);
+        }}
+      >
+        <div className={classes.dialog}>
+          <div className={classes.title}>Akhiri Sesi</div>
+          <div className={classes.desc}>Aksi ini akan mengakhiri sesi konsultasi ini, Anda yakin?</div>
+          <div className={classes.submit} onClick={handleEndSession}>
+            Submit
+          </div>
+        </div>
+      </Dialog>
     </div>
   );
 };

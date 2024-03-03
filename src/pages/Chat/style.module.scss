@@ -20,6 +20,8 @@
 
   .header {
     @include directionX;
+    justify-content: space-between;
+    align-items: center;
     gap: 12px;
     align-items: center;
     position: fixed;
@@ -44,6 +46,16 @@
       width: 30%;
       margin: auto;
     }
+
+    .user {
+      @include directionX;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .end {
+      cursor: pointer;
+    }
   }
 
   .content {
@@ -51,6 +63,7 @@
     padding-bottom: 72px;
     padding-left: 18px;
     padding-right: 18px;
+    // width: 100%;
 
     .yourMessage {
       @include directionX;
@@ -136,5 +149,27 @@
       border-top-left-radius: 0px;
       border-bottom-left-radius: 0px;
     }
+  }
+}
+
+.dialog {
+  padding: 18px;
+
+  .title {
+    font-size: 18px;
+    font-weight: 600;
+    color: $color-red;
+    margin-bottom: 12px;
+  }
+
+  .desc {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .submit {
+    @include button;
+    font-size: 14px;
+    width: fit-content;
   }
 }

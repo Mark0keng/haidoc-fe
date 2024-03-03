@@ -1,0 +1,99 @@
+@import '@styles/base.scss';
+
+.layout {
+  .header {
+    padding: 18px;
+    background-color: var(--color-bg);
+
+    .text {
+      font-size: 18px;
+      font-weight: 700;
+    }
+  }
+
+  .patient {
+    @include directionX;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding: 18px;
+    background-color: var(--color-bg);
+
+    .name {
+      color: $color-sky-blue;
+      font-weight: 500;
+    }
+  }
+
+  .doctor {
+    @include directionX;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 18px;
+    background-color: var(--color-bg);
+    .imageSection {
+      border: 1px solid $color-black;
+      border-radius: 5px;
+      width: 84px;
+      height: 84px;
+      overflow: hidden;
+
+      .image {
+        object-fit: cover;
+        width: 84px;
+        height: 84px;
+        transform: scale(1.25);
+      }
+    }
+
+    .info {
+      .name {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .specialist {
+        font-size: 14px;
+        font-weight: 400;
+        color: $color-grey;
+        margin-bottom: 2px;
+      }
+    }
+  }
+
+  .bill {
+    background-color: var(--color-bg);
+    padding: 18px;
+    margin-top: 8px;
+
+    .item {
+      @include directionX;
+      justify-content: space-between;
+
+      .price {
+        font-weight: 500;
+      }
+    }
+
+    .total {
+      @include directionX;
+      justify-content: space-between;
+      font-weight: 600;
+      padding-top: 12px;
+    }
+  }
+
+  .pay {
+    padding: 18px;
+    background-color: var(--color-bg);
+    .button {
+      @include button;
+      margin: 0;
+      text-align: center;
+    }
+    .buttonDisable {
+      @include button;
+      margin: 0;
+      text-align: center;
+      background-color: #b5c0d0;
+    }
+  }
+}

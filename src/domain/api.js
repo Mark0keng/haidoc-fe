@@ -7,6 +7,8 @@ const urls = {
   ping: 'ping.json',
   register: 'register',
   login: 'login',
+  forgotPassword: 'forgot-password',
+  changePassword: 'forgot-password/change',
   getProvince: 'address/province',
   getCity: 'address/city',
   getShippingCost: 'address/shipping-cost',
@@ -30,6 +32,10 @@ const urls = {
   getPayment: 'payment',
   getDoctor: 'doctor',
   getChat: 'chat',
+  deleteChat: 'chat/delete',
+  getUserChatOrder: 'chat-order/user',
+  createChatOrder: 'chat-order/create',
+  updateChatOrder: 'chat-order/update',
   createChat: 'chat/create',
   getMessage: 'message',
   getLatestMessage: 'message/latest',
@@ -59,6 +65,8 @@ export const callAPI = async (endpoint, method, header = {}, params = {}, data =
 export const ping = () => callAPI(urls.ping, 'get');
 export const register = (payload) => callAPI(urls.register, 'post', {}, {}, payload);
 export const login = (payload) => callAPI(urls.login, 'post', {}, {}, payload);
+export const forgotPassword = (payload) => callAPI(urls.forgotPassword, 'post', {}, {}, payload);
+export const changePassword = (payload) => callAPI(`${urls.changePassword}`, 'post', {}, {}, payload);
 
 export const getProduct = (query) => callAPI(urls.getProduct, 'get', {}, query);
 export const getProductById = (productId) => callAPI(`${urls.getProduct}/${productId}`, 'get');
@@ -94,6 +102,12 @@ export const getDoctor = (query) => callAPI(urls.getDoctor, 'get', {}, query);
 
 export const getChat = (query) => callAPI(urls.getChat, 'get', {}, query);
 export const createChat = (payload) => callAPI(urls.createChat, 'post', {}, {}, payload);
+export const deleteChat = (chatId) => callAPI(`${urls.deleteChat}/${chatId}`, 'delete');
+
+export const getUserChatOrder = (query) => callAPI(urls.getUserChatOrder, 'get', {}, query);
+export const createChatOrder = (payload) => callAPI(urls.createChatOrder, 'post', {}, {}, payload);
+export const updateChatOrder = (payload, orderId) =>
+  callAPI(`${urls.updateChatOrder}/${orderId}`, 'put', {}, {}, payload);
 
 export const getMessage = (query) => callAPI(urls.getMessage, 'get', {}, query);
 export const getLatestMessage = (query) => callAPI(urls.getLatestMessage, 'get', {}, query);

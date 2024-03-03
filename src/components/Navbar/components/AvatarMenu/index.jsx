@@ -31,7 +31,7 @@ const AvatarMenu = ({ me }) => {
 
   return (
     <>
-      <Avatar style={{ width: 32, height: 32, cursor: 'pointer' }} onClick={handleClick} />
+      <Avatar style={{ width: 32, height: 32, cursor: 'pointer' }} onClick={handleClick}></Avatar>
       <Menu open={open} anchorEl={menuPosition} onClose={handleClose}>
         <MenuItem style={{ cursor: 'pointer', fontSize: 14 }}>
           <div className={classes.menu}>

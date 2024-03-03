@@ -54,7 +54,16 @@
           outline: none;
         }
       }
+      .forgot {
+        width: 100%;
+        font-size: 14px;
+        color: $color-sky-blue;
+        text-align: end;
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
+
     .button {
       margin-top: 5%;
       padding: 8px 24px;

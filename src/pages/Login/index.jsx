@@ -7,6 +7,7 @@ import { setAddress } from '@pages/Address/actions';
 import { setCart } from '@pages/Cart/actions';
 
 import classes from './style.module.scss';
+import { encryptPayload } from '@utils/encryptPayload';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -17,8 +18,8 @@ const Login = () => {
 
   const handleSubmit = () => {
     const payload = {
-      email,
-      password,
+      email: encryptPayload(email),
+      password: encryptPayload(password),
     };
     dispatch(
       login(
@@ -68,6 +69,9 @@ const Login = () => {
               setPassword(e.target.value);
             }}
           />
+          <div className={classes.forgot} onClick={() => navigate('/forgot-password')}>
+            Lupa Password?
+          </div>
         </div>
 
         <div className={classes.button} onClick={handleSubmit}>

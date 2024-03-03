@@ -29,9 +29,11 @@ const ClientRoutes = () => {
       if (Protected) {
         if (IsAdmin) {
           return <Client role={3}>{element}</Client>;
-        } else if (isDoctor) {
+        }
+        if (isDoctor) {
           return <Client role={2}>{element}</Client>;
-        } else if (isPublic) {
+        }
+        if (isPublic) {
           return <Client role={1}>{element}</Client>;
         }
       }

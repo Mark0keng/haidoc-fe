@@ -20,6 +20,7 @@ import { selectCart } from '@pages/Cart/selector';
 
 import classes from './style.module.scss';
 import { jwtDecode } from 'jwt-decode';
+import { ChatOutlined } from '@mui/icons-material';
 
 const Navbar = ({ login, token, locale, theme, cart }) => {
   const dispatch = useDispatch();
@@ -70,6 +71,11 @@ const Navbar = ({ login, token, locale, theme, cart }) => {
         </div>
         <div className={classes.toolbar}>
           {login && <AvatarMenu me={me} />}
+          {login && (
+            <div className={classes.chat} onClick={() => navigate('/chat-list/user')}>
+              <ChatOutlined />
+            </div>
+          )}
           {login && (
             <div className={classes.cart} onClick={() => navigate('/checkout/cart')}>
               <Badge badgeContent={totalCart} color="primary">

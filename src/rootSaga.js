@@ -10,12 +10,17 @@ import addressSaga from '@pages/Address/saga';
 import orderSaga from '@pages/Order/saga';
 import doctorSaga from '@pages/Doctor/saga';
 import chatSaga from '@pages/Chat/saga';
+import chatOrderSaga from '@pages/ChatOrder/saga';
+import forgotPasswordSaga from '@pages/ForgotPassword/saga';
+import changePasswordSaga from '@pages/ChangePassword/saga';
 
 export default function* rootSaga() {
   yield all([
     appSaga(),
     registerSaga(),
     loginSaga(),
+    forgotPasswordSaga(),
+    changePasswordSaga(),
     productDashboardSaga(),
     productDetailSaga(),
     addressSaga(),
@@ -23,5 +28,6 @@ export default function* rootSaga() {
     orderSaga(),
     doctorSaga(),
     chatSaga(),
+    chatOrderSaga(),
   ]);
 }

@@ -15,7 +15,7 @@
   }
 
   .doctorSection {
-    padding: 0px 2%;
+    padding: 18px 2%;
     box-sizing: border-box;
 
     .listDoctor {
@@ -30,17 +30,22 @@
         -moz-box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.5);
 
         .imageSection {
+          width: 180px;
+          overflow: hidden;
+
           .image {
             width: 120px;
             height: 120px;
             object-fit: cover;
             border-radius: 10px;
+            transform: scale(1.25);
           }
         }
 
         .infoSection {
           @include directionY;
           gap: 8px;
+          width: 100%;
           .name {
             font-size: 16px;
             font-weight: 600;
@@ -62,8 +67,20 @@
             width: fit-content;
             border-radius: 25px;
           }
+          .action {
+            @include directionX;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            .cost {
+              font-size: 20px;
+              font-weight: 600;
+              color: $color-sky-blue;
+            }
+          }
           .chat {
             @include button;
+            margin: 0;
             width: fit-content;
             padding: 4px 12px;
             font-size: 16px;

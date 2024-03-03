@@ -1,0 +1,48 @@
+@import '@styles/base.scss';
+
+.layout {
+  @include directionX;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+
+  .card {
+    padding: 24px;
+    border-radius: 10px;
+    background-color: var(--color-bg);
+    width: 480px;
+
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .alert {
+      @include error;
+      background-color: $color-sky-blue;
+      box-sizing: border-box;
+    }
+
+    .info {
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: $color-midnight-blue;
+    }
+
+    .formControl {
+      .label {
+        @include label;
+      }
+      .input {
+        @include input;
+      }
+    }
+
+    .button {
+      @include button;
+      text-align: center;
+      margin-top: 18px;
+    }
+  }
+}

@@ -1,0 +1,74 @@
+@import '@styles/base.scss';
+
+.layout {
+  @include directionX;
+  justify-content: center;
+
+  .content {
+    width: 480px;
+    background-color: var(--color-bg);
+    padding: 24px;
+
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 32px;
+    }
+
+    .card {
+      padding: 16px;
+      border-radius: 8px;
+      background-color: $color-midnight-blue;
+      margin-bottom: 12px;
+
+      .id {
+        font-size: 16px;
+        font-weight: 500;
+        color: $color-white;
+        margin-bottom: 12px;
+      }
+
+      .infoSection {
+        @include directionX;
+        gap: 8px;
+        .imageSection {
+          height: 72px;
+          width: 72px;
+          border-radius: 10px;
+          overflow: hidden;
+
+          .image {
+            height: 72px;
+            width: 72px;
+            transform: scale(1.25);
+          }
+        }
+
+        .info {
+          width: 80%;
+          .name {
+            font-size: 14px;
+            font-weight: 500;
+            color: $color-white;
+          }
+
+          .specialist {
+            font-size: 12px;
+            font-weight: 500;
+            color: $color-white;
+          }
+
+          .chat {
+            @include button;
+            margin: 0;
+            margin-top: 8px;
+            padding: 4px 8px;
+            font-size: 14px;
+            width: 50%;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

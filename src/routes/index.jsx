@@ -2,10 +2,13 @@ import AppLayout from '@layouts/AppLayout';
 import MainLayout from '@layouts/MainLayout';
 import Address from '@pages/Address';
 import Cart from '@pages/Cart';
+import ChangePassword from '@pages/ChangePassword';
 import Chat from '@pages/Chat';
 import ChatList from '@pages/ChatList';
+import ChatOrder from '@pages/ChatOrder';
 import Dashboard from '@pages/Dashboard/Index';
 import Doctor from '@pages/Doctor';
+import ForgotPassword from '@pages/ForgotPassword';
 
 import Home from '@pages/Home';
 import Login from '@pages/Login';
@@ -17,6 +20,7 @@ import ProductDetail from '@pages/ProductDetail';
 import Profile from '@pages/Profile';
 import Register from '@pages/Register';
 import Shop from '@pages/Shop';
+import UserChatList from '@pages/UserChatList';
 
 const routes = [
   {
@@ -47,10 +51,23 @@ const routes = [
     component: Login,
   },
   {
+    path: '/forgot-password',
+    name: 'Forgot Password',
+    protected: false,
+    component: ForgotPassword,
+  },
+  {
+    path: '/forgot-password/change/:token',
+    name: 'Forgot Change Password',
+    protected: false,
+    component: ChangePassword,
+  },
+  {
     path: '/profile',
     name: 'Profile',
     protected: true,
     component: Profile,
+    layout: MainLayout,
   },
   {
     path: '/register',
@@ -63,6 +80,13 @@ const routes = [
     name: 'Doctor',
     protected: false,
     component: Doctor,
+    layout: MainLayout,
+  },
+  {
+    path: '/chat-order/:orderId',
+    name: 'Chat Order',
+    protected: true,
+    component: ChatOrder,
     layout: MainLayout,
   },
   {
@@ -122,6 +146,14 @@ const routes = [
     name: 'Chat',
     protected: true,
     component: Chat,
+  },
+  {
+    path: '/chat-list/user',
+    name: 'User Chat List',
+    protected: true,
+    isPublic: true,
+    component: UserChatList,
+    layout: MainLayout,
   },
   { path: '*', name: 'Not Found', component: NotFound, layout: MainLayout, protected: false },
 ];

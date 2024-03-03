@@ -1,4 +1,4 @@
-import { CREATE_CHAT, CREATE_MESSAGE, GET_CHAT, GET_LATEST_MESSAGE, GET_MESSAGE } from './constants';
+import { CREATE_CHAT, CREATE_MESSAGE, DELETE_CHAT, GET_CHAT, GET_LATEST_MESSAGE, GET_MESSAGE } from './constants';
 
 export const createChat = (payload, cbSuccess, cbFailed) => ({
   type: CREATE_CHAT,
@@ -10,6 +10,13 @@ export const createChat = (payload, cbSuccess, cbFailed) => ({
 export const getChat = (query, cbSuccess, cbFailed) => ({
   type: GET_CHAT,
   query,
+  cbSuccess,
+  cbFailed,
+});
+
+export const deleteChat = (chatId, cbSuccess, cbFailed) => ({
+  type: DELETE_CHAT,
+  chatId,
   cbSuccess,
   cbFailed,
 });

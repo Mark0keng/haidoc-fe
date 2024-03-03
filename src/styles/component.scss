@@ -8,6 +8,7 @@
   padding: 10px;
   border-radius: 5px;
   border: 1.5px solid #0052a0;
+  box-sizing: border-box;
   &:focus {
     border: 1.5px solid #0052a0;
     outline: none;

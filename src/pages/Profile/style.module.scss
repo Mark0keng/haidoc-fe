@@ -1,25 +1,56 @@
 @import '@styles/base.scss';
 
 .layout {
-  @include directionX;
+  @include directionY;
   justify-content: center;
   align-items: center;
   padding-top: 120px;
 
   .card {
-    background-color: var(--color-text);
+    background-color: $color-white;
     border-radius: 10px;
     position: relative;
     width: 320px;
+    box-sizing: border-box;
 
     .imageSection {
       position: inherit;
       top: -47px;
       left: 36%;
-      background-color: var(--color-text);
+      background-color: $color-white;
       width: fit-content;
       padding: 4px;
       border-radius: 50px;
     }
+
+    .infoSection {
+      // @include directionX;
+      text-align: center;
+      margin-top: -32px;
+      padding-bottom: 24px;
+      .username {
+        color: $color-dark-blue;
+        font-size: 20px;
+        font-weight: 700;
+      }
+      .edit {
+        @include directionX;
+        margin-top: 4px;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+        color: $color-dark-blue;
+        cursor: pointer;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .partner {
+    @include button;
+    margin-top: 24px;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 12px 48px;
   }
 }

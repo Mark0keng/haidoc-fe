@@ -13,13 +13,16 @@ import { createChat, getChat } from '@pages/Chat/actions';
 import { selectToken } from '@containers/Client/selectors';
 
 import classes from './style.module.scss';
+import DoctorModal from './components/doctorModal';
 
 const socket = io.connect('http://localhost:5000');
 
 const Doctor = ({ token }) => {
   const [me, setMe] = useState('');
+  const [doctor, setDoctor] = useState('');
   const [doctors, setDoctors] = useState('');
   const [search, setSearch] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -67,6 +70,10 @@ const Doctor = ({ token }) => {
     );
   };
 
+  const handleOpenModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <div className={classes.layout}>
       <div className={classes.title}>Cari Dokter</div>
@@ -109,14 +116,22 @@ const Doctor = ({ token }) => {
                       <div className={classes.specialist}>{doctor?.specialist}</div>
                       <div className={classes.experience}>
                         <WorkHistoryRounded style={{ fontSize: 14, marginRight: 8 }} />
-                        <div className={classes.text}>{doctor?.experience}</div>
+                        <div className={classes.text}>{doctor?.experience} tahun</div>
                       </div>
-
-                      {me?.role === 1 && (
-                        <div className={classes.chat} onClick={() => enterChat(doctor?.user?.id)}>
-                          Chat
-                        </div>
-                      )}
+                      <div className={classes.action}>
+                        <div className={classes.cost}>Rp {doctor?.cost}</div>
+                        {me?.role === 1 && (
+                          <div
+                            className={classes.chat}
+                            onClick={() => {
+                              setDoctor(doctor);
+                              handleOpenModal();
+                            }}
+                          >
+                            Chat
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </Grid>
@@ -124,6 +139,13 @@ const Doctor = ({ token }) => {
           </Grid>
         </div>
       </div>
+      <DoctorModal
+        doctor={doctor}
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+        }}
+      />
     </div>
   );
 };
