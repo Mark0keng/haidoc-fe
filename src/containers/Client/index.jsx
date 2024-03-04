@@ -13,18 +13,24 @@ const Client = ({ role, login, children, token }) => {
 
   useEffect(() => {
     token && setUser(jwtDecode(token));
+  }, []);
 
+  useEffect(() => {
     if (!login) {
       navigate('/login');
-      if (token && Date.now() >= user?.exp * 1000) {
-        navigate('/login');
-      }
+      console.log(token);
+    }
+
+    if (Date.now() >= user?.exp * 1000) {
+      navigate('/login');
     }
 
     // if (role && user.role !== role) {
     //   navigate('/unauthorized');
     // }
-  }, [login, token, navigate]);
+  }, [login, token, user, navigate]);
+
+  useEffect;
 
   return children;
 };

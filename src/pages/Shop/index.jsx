@@ -32,6 +32,15 @@ const Shop = () => {
     );
   };
 
+  const handleFilter = (event) => {
+    dispatch(
+      getAllProduct({ category: event.target.value }, (productData) => {
+        setProducts(productData);
+      })
+    );
+    console.log(products);
+  };
+
   return (
     <div>
       <div className={classes.banner}>
@@ -57,20 +66,28 @@ const Shop = () => {
             </div>
             <div className={classes.list}>
               <div className={classes.item}>
-                <input type="radio" name="category" />
-                <div className={classes.label}>Obat</div>
+                <input type="radio" value="Obat Batuk" name="category" onChange={handleFilter} />
+                <div className={classes.label}>Obat Batuk</div>
               </div>
               <div className={classes.item}>
-                <input type="radio" name="category" />
-                <div className={classes.label}>Obat</div>
+                <input type="radio" value="Obat Sakit Tenggorokan" name="category" onChange={handleFilter} />
+                <div className={classes.label}>Obat Sakit Tenggorokan</div>
               </div>
               <div className={classes.item}>
-                <input type="radio" name="category" />
-                <div className={classes.label}>Obat</div>
+                <input type="radio" value="Obat Sakit Kepala" name="category" onChange={handleFilter} />
+                <div className={classes.label}>Obat Sakit Kepala</div>
               </div>
               <div className={classes.item}>
-                <input type="radio" name="category" />
-                <div className={classes.label}>Obat</div>
+                <input type="radio" value="Suplemen" name="category" onChange={handleFilter} />
+                <div className={classes.label}>Suplemen</div>
+              </div>
+              <div className={classes.item}>
+                <input type="radio" value="Vitamin" name="category" onChange={handleFilter} />
+                <div className={classes.label}>Vitamin</div>
+              </div>
+              <div className={classes.item}>
+                <input type="radio" value="Jamu" name="category" onChange={handleFilter} />
+                <div className={classes.label}>Jamu</div>
               </div>
             </div>
           </div>

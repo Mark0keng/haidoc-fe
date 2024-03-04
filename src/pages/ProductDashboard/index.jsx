@@ -63,6 +63,7 @@ const ProductDashboard = ({ products }) => {
               <TableCell align="center">Image</TableCell>
               <TableCell align="center">Name</TableCell>
               <TableCell align="center">Price</TableCell>
+              <TableCell align="center">Stock</TableCell>
               <TableCell align="center">Action</TableCell>
             </TableRow>
           </TableHead>
@@ -75,6 +76,7 @@ const ProductDashboard = ({ products }) => {
                 </TableCell>
                 <TableCell align="center">{product?.name}</TableCell>
                 <TableCell align="center">Rp {product?.price}</TableCell>
+                <TableCell align="center">{product?.stock}</TableCell>
                 <TableCell align="center">
                   <div className={classes.action}>
                     <div

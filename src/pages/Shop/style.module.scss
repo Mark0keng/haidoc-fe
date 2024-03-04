@@ -55,7 +55,7 @@
     @include directionX;
     .filter {
       display: none;
-      width: 60%;
+      width: 280px;
       border: 1px solid var(--color-text);
       border-radius: 10px;
       padding: 12px;
@@ -90,6 +90,7 @@
       }
     }
     .catalogue {
+      width: 100%;
       .card {
         width: 100%;
         background-color: var(--color-bg);
