@@ -98,10 +98,20 @@
         cursor: pointer;
         .productImg {
           overflow: hidden;
+          position: relative;
           .image {
             width: 100%;
             object-fit: cover;
             border-radius: 10px;
+          }
+
+          .empty {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            color: $color-red;
+            font-size: 12px;
+            font-weight: 500;
           }
         }
         .productInfo {

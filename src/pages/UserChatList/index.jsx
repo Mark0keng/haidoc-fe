@@ -17,7 +17,7 @@ const UserChatList = ({ token }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setMe(jwtDecode(token));
+    token && setMe(jwtDecode(token));
   }, [token]);
 
   useEffect(() => {

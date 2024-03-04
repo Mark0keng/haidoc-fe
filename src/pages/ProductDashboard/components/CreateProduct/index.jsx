@@ -10,12 +10,13 @@ const CreateProduct = ({ isOpen, onClose }) => {
   const [imageUrl, setImageUrl] = useState('');
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
+  const [stock, setStock] = useState('');
   const [description, setDescription] = useState('');
   const [concern, setConcern] = useState('');
   const [consumption, setConsumption] = useState('');
   const [packaging, setPackaging] = useState('');
   const [manufacture, setManufacture] = useState('');
-  const [categoryId, setCategoryId] = useState('');
+  const [category, setCategory] = useState('');
   const [preview, setPreview] = useState('');
   const [error, setError] = useState('');
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const CreateProduct = ({ isOpen, onClose }) => {
     setConsumption('');
     setPackaging('');
     setManufacture('');
+    setStock('');
     setError('');
   }, [onClose]);
 
@@ -45,12 +47,13 @@ const CreateProduct = ({ isOpen, onClose }) => {
       imageUrl,
       name,
       price,
+      stock,
       description,
       concern,
       consumption,
       packaging,
       manufacture,
-      categoryId: Number(categoryId),
+      category,
     };
     dispatch(
       createProduct(
@@ -111,16 +114,31 @@ const CreateProduct = ({ isOpen, onClose }) => {
               />
             </div>
             <div className={classes.formControl}>
+              <div className={classes.label}>Stock</div>
+              <input
+                type="text"
+                className={classes.input}
+                value={stock}
+                onChange={(e) => {
+                  setStock(e.target.value);
+                }}
+              />
+            </div>
+            <div className={classes.formControl}>
               <div className={classes.label}>Category</div>
-              {/* <input type="text" className={classes.input} /> */}
               <select
                 className={classes.input}
                 onChange={(e) => {
-                  setCategoryId(e.target.value);
+                  setCategory(e.target.value);
                 }}
               >
-                <option value="1">Obat</option>
-                <option value="2">Peralatan Kesehatan</option>
+                <option value="">-- Pilih Kategori --</option>
+                <option value="Obat Batuk">Obat Batuk</option>
+                <option value="Obat Sakit Tenggorokan">Obat Sakit Tenggorokan</option>
+                <option value="Obat Sakit Kepala">Obat Sakit Kepala</option>
+                <option value="Suplemen">Suplemen </option>
+                <option value="Vitamin">Vitamin </option>
+                <option value="Jamu">Jamu </option>
               </select>
             </div>
           </div>

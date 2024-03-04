@@ -60,7 +60,7 @@ const Sidebar = ({ token }) => {
             <div className={classes.name}>Chat</div>
           </div>
         )}
-        {user?.id === 3 && (
+        {user?.role === 3 && (
           <div className={classes.item}>
             <MedicationOutlined />
             <div

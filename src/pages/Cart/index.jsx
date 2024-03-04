@@ -11,7 +11,7 @@ import { selectCart } from './selector';
 import { deleteCart, getShippingCost, getUserCart, setCart, updateCart } from './actions';
 import { getAddress, setAddress } from '@pages/Address/actions';
 import { selectAddress } from '@pages/Address/selector';
-import { createOrder, createOrderItem } from '@pages/Order/actions';
+import { createOrder } from '@pages/Order/actions';
 
 import classes from './style.module.scss';
 
@@ -85,17 +85,6 @@ const Cart = ({ cart, address }) => {
     dispatch(
       createOrder(payload, (orderData) => {
         for (const item of cart) {
-          dispatch(
-            createOrderItem({
-              orderId: orderData?.orderId,
-              productName: item.products.name,
-              productPrice: item.products.price,
-              count: item.count,
-            })
-          );
-        }
-
-        for (const item of cart) {
           dispatch(deleteCart(item?.id));
         }
         dispatch(setCart([]));
@@ -103,8 +92,6 @@ const Cart = ({ cart, address }) => {
       })
     );
   };
-
-  // console.log(cart);
 
   return (
     <div className={classes.layout}>

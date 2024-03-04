@@ -15,7 +15,8 @@ const UpdateProduct = ({ product, isOpen, onClose }) => {
   const [consumption, setConsumption] = useState('');
   const [packaging, setPackaging] = useState('');
   const [manufacture, setManufacture] = useState('');
-  const [categoryId, setCategoryId] = useState('');
+  const [category, setCategory] = useState('');
+  const [stock, setStock] = useState('');
   const [preview, setPreview] = useState('');
   const [error, setError] = useState('');
   const dispatch = useDispatch();
@@ -29,7 +30,8 @@ const UpdateProduct = ({ product, isOpen, onClose }) => {
     setConsumption(product?.consumption);
     setPackaging(product?.packaging);
     setManufacture(product?.manufacture);
-    setCategoryId(product?.categoryId);
+    setCategory(product?.category);
+    setStock(product?.stock);
     setError('');
   }, [product, isOpen]);
 
@@ -50,7 +52,8 @@ const UpdateProduct = ({ product, isOpen, onClose }) => {
       consumption,
       packaging,
       manufacture,
-      categoryId: Number(categoryId),
+      category,
+      stock,
     };
     dispatch(
       updateProduct(
@@ -102,7 +105,7 @@ const UpdateProduct = ({ product, isOpen, onClose }) => {
             <div className={classes.formControl}>
               <div className={classes.label}>Price</div>
               <input
-                type="text"
+                type="number"
                 className={classes.input}
                 value={price}
                 onChange={(e) => {
@@ -111,16 +114,31 @@ const UpdateProduct = ({ product, isOpen, onClose }) => {
               />
             </div>
             <div className={classes.formControl}>
+              <div className={classes.label}>Stock</div>
+              <input
+                type="number"
+                className={classes.input}
+                value={stock}
+                onChange={(e) => {
+                  setStock(e.target.value);
+                }}
+              />
+            </div>
+            <div className={classes.formControl}>
               <div className={classes.label}>Category</div>
-              {/* <input type="text" className={classes.input} /> */}
               <select
                 className={classes.input}
+                value={category}
                 onChange={(e) => {
-                  setCategoryId(e.target.value);
+                  setCategory(e.target.value);
                 }}
               >
-                <option value="1">Obat</option>
-                <option value="2">Peralatan Kesehatan</option>
+                <option value="Obat Batuk">Obat Batuk</option>
+                <option value="Obat Sakit Tenggorokan">Obat Sakit Tenggorokan</option>
+                <option value="Obat Sakit Kepala">Obat Sakit Kepala</option>
+                <option value="Suplemen">Suplemen </option>
+                <option value="Vitamin">Vitamin </option>
+                <option value="Jamu">Jamu </option>
               </select>
             </div>
           </div>

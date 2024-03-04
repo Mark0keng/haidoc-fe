@@ -86,6 +86,7 @@ const Shop = () => {
                   >
                     <div className={classes.productImg}>
                       <img src={product.imageUrl} alt="product-img" className={classes.image} />
+                      {product?.stock < 1 && <div className={classes.empty}>Stok Habis</div>}
                     </div>
                     <div className={classes.productInfo}>
                       <div className={classes.title}>{product?.name}</div>

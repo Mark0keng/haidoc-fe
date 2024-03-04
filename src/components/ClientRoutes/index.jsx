@@ -27,17 +27,18 @@ const ClientRoutes = () => {
       }
 
       if (Protected) {
-        if (IsAdmin) {
-          return <Client role={3}>{element}</Client>;
-        }
-        if (isDoctor) {
-          return <Client role={2}>{element}</Client>;
-        }
-        if (isPublic) {
-          return <Client role={1}>{element}</Client>;
-        }
+        // if (IsAdmin) {
+        //   return <Client role={3}>{element}</Client>;
+        // }
+        // if (isDoctor) {
+        //   return <Client role={2}>{element}</Client>;
+        // }
+        // if (isPublic) {
+        //   return <Client role={1}>{element}</Client>;
+        // }
+        return <Client>{element}</Client>;
       }
-      return <Client>{element}</Client>;
+      return element;
     };
 
     routes.forEach((route) => {

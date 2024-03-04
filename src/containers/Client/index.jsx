@@ -12,19 +12,19 @@ const Client = ({ role, login, children, token }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (login && !login) {
-      navigate('/login');
-      // if (token && Date.now() >= user?.exp * 1000) {
-      //   navigate('/login');
-      // }
-    }
-
     token && setUser(jwtDecode(token));
+
+    if (!login) {
+      navigate('/login');
+      if (token && Date.now() >= user?.exp * 1000) {
+        navigate('/login');
+      }
+    }
 
     // if (role && user.role !== role) {
     //   navigate('/unauthorized');
     // }
-  }, [role, token, login, navigate]);
+  }, [login, token, navigate]);
 
   return children;
 };

@@ -15,8 +15,6 @@ import { selectToken } from '@containers/Client/selectors';
 import classes from './style.module.scss';
 import DoctorModal from './components/doctorModal';
 
-const socket = io.connect('http://localhost:5000');
-
 const Doctor = ({ token }) => {
   const [me, setMe] = useState('');
   const [doctor, setDoctor] = useState('');

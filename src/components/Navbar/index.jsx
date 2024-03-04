@@ -31,7 +31,7 @@ const Navbar = ({ login, token, locale, theme, cart }) => {
   const open = Boolean(menuPosition);
 
   useEffect(() => {
-    setMe(jwtDecode(token));
+    token && setMe(jwtDecode(token));
   }, []);
 
   useEffect(() => {

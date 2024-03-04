@@ -56,8 +56,6 @@ const ChatOrder = () => {
                       }
                     )
                   );
-
-                  na;
                 }
               )
             );
@@ -114,7 +112,7 @@ const ChatOrder = () => {
 
       <div className={classes.bill}>
         <div className={classes.item}>
-          <div className={classes.label}>Biaya sesi 30 menit</div>
+          <div className={classes.label}>Biaya sesi chat</div>
           <div className={classes.price}>Rp {chatOrder?.chatCost}</div>
         </div>
         <div className={classes.item}>

@@ -115,41 +115,46 @@ const ProductDetail = ({ product, cart }) => {
           <div className={classes.name}>{product?.name}</div>
           <div className={classes.package}>{product?.packaging}</div>
           <div className={classes.price}>Rp {product?.price}</div>
+          <div className={classes.stock}>Stok : {product?.stock}</div>
 
-          {productInCart ? (
-            <div className={classes.quantity}>
-              <div
-                className={classes.remove}
-                onClick={() => {
-                  const payload = {
-                    productId: productInCart?.productId,
-                    userId: productInCart?.userId,
-                    count: productInCart?.count,
-                  };
-                  handleUpdateItem('minus', payload, productInCart?.id);
-                }}
-              >
-                <Remove />
+          {product?.stock >= 1 ? (
+            productInCart ? (
+              <div className={classes.quantity}>
+                <div
+                  className={classes.remove}
+                  onClick={() => {
+                    const payload = {
+                      productId: productInCart?.productId,
+                      userId: productInCart?.userId,
+                      count: productInCart?.count,
+                    };
+                    handleUpdateItem('minus', payload, productInCart?.id);
+                  }}
+                >
+                  <Remove />
+                </div>
+                <div className={classes.count}>{productInCart.count}</div>
+                <div
+                  className={classes.add}
+                  onClick={() => {
+                    const payload = {
+                      productId: productInCart?.productId,
+                      userId: productInCart?.userId,
+                      count: productInCart?.count,
+                    };
+                    handleUpdateItem('add', payload, productInCart?.id);
+                  }}
+                >
+                  <Add />
+                </div>
               </div>
-              <div className={classes.count}>{productInCart.count}</div>
-              <div
-                className={classes.add}
-                onClick={() => {
-                  const payload = {
-                    productId: productInCart?.productId,
-                    userId: productInCart?.userId,
-                    count: productInCart?.count,
-                  };
-                  handleUpdateItem('add', payload, productInCart?.id);
-                }}
-              >
-                <Add />
+            ) : (
+              <div className={classes.button} onClick={handleAddToCart}>
+                <AddShoppingCartRounded /> Tambah Keranjang
               </div>
-            </div>
+            )
           ) : (
-            <div className={classes.button} onClick={handleAddToCart}>
-              <AddShoppingCartRounded /> Tambah Keranjang
-            </div>
+            <div className={classes.empty}>Stock Habis</div>
           )}
         </div>
       </div>
