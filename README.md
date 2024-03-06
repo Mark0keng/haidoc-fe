@@ -4,6 +4,30 @@ One Stop Medical App
 
 ![Alt text](https://res.cloudinary.com/dfbcal2eb/image/upload/v1709606052/c7c8jiqmh25iwuuet1cs.png 'a title')
 
+# Tech Stack
+
+> 1. NodeJs
+> 2. Sequelize (ORM)
+> 3. Redis
+> 4. Socket.io
+> 5. React
+> 6. Redux Saga
+> 7. Nodemailer
+> 8. Midtrans (Payment Gateway)
+
+# How to Install (Front-end)
+
+> - npm install
+> - npm start
+
+# How to Install (Back-end)
+
+> - npm install
+> - npx sequelize-cli init
+> - npx sequelize-cli db:create
+> - npx sequelize-cli db:migrate
+> - npm run dev
+
 ## Konsultasi Online
 
 Halaman katalog list dokter untuk konsultasi online via chat

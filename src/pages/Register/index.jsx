@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { register } from './actions';
 
 import classes from './style.module.scss';
+import { encryptPayload } from '@utils/encryptPayload';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -16,11 +17,13 @@ const Register = () => {
 
   const handleSubmit = () => {
     const payload = {
-      username,
-      email,
-      password,
-      role: 1,
+      username: encryptPayload(username),
+      email: encryptPayload(email),
+      password: encryptPayload(password),
+      role: encryptPayload('1'),
     };
+
+    // console.log(payload);
 
     dispatch(
       register(
