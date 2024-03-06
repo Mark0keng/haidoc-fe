@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Dialog } from '@mui/material';
 
 import classes from './style.module.scss';
-import { deleteProduct } from '@pages/ProductDashboard/actions';
+import { deleteProduct, getAllProduct } from '@pages/ProductDashboard/actions';
 
 const DeleteProduct = ({ product, isOpen, onClose }) => {
   const dispatch = useDispatch();
@@ -12,6 +12,7 @@ const DeleteProduct = ({ product, isOpen, onClose }) => {
     dispatch(
       deleteProduct(product?.id, () => {
         onClose();
+        dispatch(getAllProduct({ limit: 3, page: 0 }));
       })
     );
   };

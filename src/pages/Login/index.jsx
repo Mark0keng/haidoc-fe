@@ -10,7 +10,8 @@ import classes from './style.module.scss';
 import { encryptPayload } from '@utils/encryptPayload';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  // const [email, setEmail] = useState('');
+  const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const Login = () => {
 
   const handleSubmit = () => {
     const payload = {
-      email: encryptPayload(email),
+      credential: encryptPayload(credential),
       password: encryptPayload(password),
     };
     dispatch(
@@ -49,6 +50,17 @@ const Login = () => {
         {error && <div className={classes.error}>{error}</div>}
 
         <div className={classes.formControl}>
+          <div className={classes.label}>Username/email</div>
+          <input
+            type="text"
+            className={classes.input}
+            value={credential}
+            onChange={(e) => {
+              setCredential(e.target.value);
+            }}
+          />
+        </div>
+        {/* <div className={classes.formControl}>
           <div className={classes.label}>Email</div>
           <input
             type="text"
@@ -58,7 +70,7 @@ const Login = () => {
               setEmail(e.target.value);
             }}
           />
-        </div>
+        </div> */}
         <div className={classes.formControl}>
           <div className={classes.label}>Password</div>
           <input
